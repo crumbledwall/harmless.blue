@@ -10,7 +10,7 @@ export default function Layout({
   return (
     <>
       <Head PageName={pageName} />
-      <div className="min-h-screen">{children}</div>
+      <div className="min-h-screen min-w-full flex flex-col items-center">{children}</div>
     </>
   )
 }

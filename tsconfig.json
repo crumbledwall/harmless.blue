@@ -16,10 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["components/*"],
-      "@/styles/*": ["styles/*"],
-      "@/utils/*": ["utils/*"]
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules"],

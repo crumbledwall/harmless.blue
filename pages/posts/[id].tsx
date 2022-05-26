@@ -1,45 +1,29 @@
-import Layout from '../../components/layout'
-import { getAllPostIds, getPostData } from '../../lib/posts'
-import Head from 'next/head'
-import Date from '../../components/date'
-import utilStyles from '../../styles/utils.module.css'
-import { GetStaticProps, GetStaticPaths } from 'next'
+import Layout from '@/components/layout'
+import { getPost } from '@/lib/yuque'
+import { parseMarkdown } from '@/lib/paser'
+import { timeFormat } from '@/lib/time'
 
-export default function Post({
-  postData
-}: {
-  postData: {
-    title: string
-    date: string
-    contentHtml: string
-  }
-}) {
+export default function Post({ postData }) {
   return (
-    <Layout>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
+    <Layout pageName={postData?.title}>
+      <div className="flex flex-col items-center container py-10">
+        <div className="text-3xl font-bold my-20">{postData?.title}</div>
+        <div>{timeFormat(postData?.time)}</div>
+        <article className="prose">{postData ? parseMarkdown(postData.content) : ''}</article>
+      </div>
     </Layout>
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async() => {
-  const paths = getAllPostIds()
+export const getStaticPaths = async () => {
   return {
-    paths,
-    fallback: false
+    paths: [],
+    fallback: true
   }
 }
 
-export const getStaticProps: GetStaticProps = async({ params }) => {
-  const postData = await getPostData(params.id as string)
+export const getStaticProps = async ({ params }) => {
+  const postData = await getPost(params.id as string)
   return {
     props: {
       postData
