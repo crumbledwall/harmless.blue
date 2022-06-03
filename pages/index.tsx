@@ -21,9 +21,14 @@ export default function Home({ list }) {
             return (
               <div key={item.id}>
                 <Link href={`/posts/${item.slug}`}>
-                  <div className="text-xl font-bold cursor-pointer">○ {item.title}</div>
+                  <div className="text-xl font-bold cursor-pointer font-serif text-dark-100">
+                    ○ {item.title}
+                  </div>
                 </Link>
-                <div className="text-sm cursor-pointer ml-5"> {timeFormat(item.created_at)}</div>
+                <div className="text-sm cursor-pointer ml-5 font-monospace text-dark-100">
+                  {' '}
+                  {timeFormat(item.created_at)}
+                </div>
               </div>
             )
           })}
