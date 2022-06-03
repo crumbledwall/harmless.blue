@@ -15,17 +15,15 @@ export async function getStaticProps() {
 export default function Home({ list }) {
   return (
     <Layout pageName="home">
-      <div className="flex-1 flex flex-col my-8 w-full">
+      <div className="flex-1 flex flex-col my-8 w-full ">
         <div className="flex-col">
           {list.map((item) => {
             return (
-              <div key={item.id}>
+              <div key={item.id} className="text-dark-100 dark:text-light-700">
                 <Link href={`/posts/${item.slug}`}>
-                  <div className="text-xl font-bold cursor-pointer font-serif text-dark-100">
-                    ○ {item.title}
-                  </div>
+                  <div className="text-xl font-bold cursor-pointer font-serif">○ {item.title}</div>
                 </Link>
-                <div className="text-sm cursor-pointer ml-5 font-monospace text-dark-100">
+                <div className="text-sm cursor-pointer ml-5 font-monospace">
                   {' '}
                   {timeFormat(item.created_at)}
                 </div>

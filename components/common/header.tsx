@@ -4,8 +4,8 @@ import { BLOG } from '@/blog.config'
 
 const PageHeader = () => {
   return (
-    <div className="w-full flex h-42 justify-center">
-      <div className="ring-dark-400 border-b-2 flex items-center gap-8 px-16 py-5 w-full">
+    <div className="w-full flex h-42 justify-center dark:text-light-700">
+      <div className="border-b-2 border-light-900 dark:border-dark-50 flex items-center gap-8 px-16 py-5 w-full">
         <div className="w-32 h-32">
           <Link href="/">
             <Image

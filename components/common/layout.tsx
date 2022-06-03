@@ -12,7 +12,7 @@ export default function Layout({
   return (
     <>
       <Head PageName={pageName} />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center dark:bg-dark-900">
         <div className="container px-72 min-h-screen flex flex-col items-center">
           <Header />
           <div className="flex-1 flex-col items-center w-full">{children}</div>

@@ -1,6 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 
 export default defineConfig({
+  darkMode: 'media',
   theme: {
     extend: {
       fontFamily: {
@@ -77,5 +78,10 @@ export default defineConfig({
     include: ['**/*.{jsx,tsx,css}'],
     exclude: ['node_modules', '.git', '.next']
   },
-  plugins: [require('windicss/plugin/typography')]
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('windicss/plugin/typography')({
+      dark: true
+    })
+  ]
 })
