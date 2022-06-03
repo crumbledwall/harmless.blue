@@ -13,7 +13,7 @@ export const parseMarkdown = (markdown: string) => {
     .use(rehypeHighlight)
     .use(rehypeStringify)
     .use(compiler, { createElement: React.createElement })
-    .processSync(filterImage(filterLink(markdown))).result
+    .processSync(filterImage(filterLink(filterNewline(markdown)))).result
 }
 
 export const filterLink = (body: string) => {
@@ -25,5 +25,5 @@ export const filterImage = (body: string) => {
 }
 
 export const filterNewline = (body: string) => {
-  return body.replaceAll('\n', '<br/>')
+  return body.replaceAll('<br />', '\n\n')
 }
