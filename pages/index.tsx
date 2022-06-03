@@ -1,5 +1,6 @@
-import Layout from '@/components/layout'
+import Layout from '@/components/common/layout'
 import { getList } from '@/lib/yuque'
+import { timeFormat } from '@/lib/time'
 import Link from 'next/link'
 
 export async function getStaticProps() {
@@ -14,12 +15,15 @@ export async function getStaticProps() {
 export default function Home({ list }) {
   return (
     <Layout pageName="home">
-      <div className="w-full h-full flex-1 flex items-center justify-center">
+      <div className="flex-1 flex flex-col my-8 w-full">
         <div className="flex-col">
           {list.map((item) => {
             return (
               <div key={item.id}>
-                <Link href={`/posts/${item.slug}`}>{item.title}</Link>
+                <Link href={`/posts/${item.slug}`}>
+                  <div className="text-xl font-bold cursor-pointer">○ {item.title}</div>
+                </Link>
+                <div className="text-sm cursor-pointer ml-5"> {timeFormat(item.created_at)}</div>
               </div>
             )
           })}

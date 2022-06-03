@@ -8,6 +8,11 @@ export default defineConfig({
           css: {
             img: {
               width: '100%'
+            },
+            blockquote: {
+              p: {
+                whiteSpace: 'pre-line'
+              }
             }
           }
         }
