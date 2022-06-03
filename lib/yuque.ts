@@ -1,15 +1,15 @@
-import { getPostList, getPostContent } from './api'
+import { getContents } from './request'
 
 const blogSlug = process.env.BLOG_SLUG
 const aboutSlug = process.env.ABOUT_SLUG
 
 export const getList = async () => {
-  const res = await getPostList(blogSlug)
+  const res = await getContents(`${blogSlug}/docs`)
   return res.data
 }
 
 export const getPost = async (slug: string) => {
-  const res = await getPostContent(`${blogSlug}/docs/${slug}`)
+  const res = await getContents(`${blogSlug}/docs/${slug}`)
   const data = res.data
 
   return {
@@ -20,7 +20,7 @@ export const getPost = async (slug: string) => {
 }
 
 export const getAbout = async () => {
-  const res = await getPostContent(aboutSlug)
+  const res = await getContents(aboutSlug)
   const data = res.data
 
   return {
