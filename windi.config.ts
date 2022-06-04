@@ -54,6 +54,11 @@ export default defineConfig({
             },
             blockQuote: {
               color: '#aaa'
+            },
+            p: {
+              code: {
+                backgroundColor: '#333'
+              }
             }
           }
         },
@@ -98,6 +103,20 @@ export default defineConfig({
             },
             ol: {
               paddingLeft: 'unset'
+            },
+            p: {
+              code: {
+                margin: '0 .25rem',
+                padding: '0 .25rem',
+                borderRadius: '.25rem',
+                backgroundColor: '#eee'
+              },
+              'code:after': {
+                content: 'unset'
+              },
+              'code:before': {
+                content: 'unset'
+              }
             }
           }
         }
