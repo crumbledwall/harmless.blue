@@ -48,6 +48,12 @@ export default defineConfig({
           css: {
             pre: {
               backgroundColor: '#222'
+            },
+            a: {
+              color: '#aaa'
+            },
+            blockQuote: {
+              color: '#aaa'
             }
           }
         },
@@ -80,7 +86,18 @@ export default defineConfig({
               color: '#999'
             },
             a: {
-              wordBreak: 'break-all'
+              wordBreak: 'break-all',
+              color: '#888'
+            },
+            blockQuote: {
+              marginLeft: 'unset',
+              color: '#888'
+            },
+            ul: {
+              paddingLeft: 'unset'
+            },
+            ol: {
+              paddingLeft: 'unset'
             }
           }
         }
