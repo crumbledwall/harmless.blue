@@ -19,7 +19,7 @@ export default function Home({ list }) {
         <div className="flex-col">
           {list.map((item) => {
             return (
-              <div key={item.id} className="text-dark-100 dark:text-light-700 flex gap-4">
+              <div key={item.id} className="text-dark-100 dark:text-light-700 flex gap-4 my-4">
                 <div> ○ </div>
                 <div>
                   <Link href={`/posts/${item.slug}`}>

@@ -1,5 +1,10 @@
 import { defineConfig } from 'windicss/helpers'
 
+const fontSerif =
+  'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+
+const fontMono = 'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace'
+
 export default defineConfig({
   darkMode: 'media',
   theme: {
@@ -39,6 +44,13 @@ export default defineConfig({
         ]
       },
       typography: {
+        dark: {
+          css: {
+            pre: {
+              backgroundColor: '#222'
+            }
+          }
+        },
         DEFAULT: {
           css: {
             img: {
@@ -50,25 +62,22 @@ export default defineConfig({
               }
             },
             h1: {
-              fontFamily:
-                'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+              fontFamily: fontSerif
             },
             h2: {
-              fontFamily:
-                'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+              fontFamily: fontSerif
             },
             h3: {
-              fontFamily:
-                'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+              fontFamily: fontSerif
             },
             h4: {
-              fontFamily:
-                'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+              fontFamily: fontSerif
             },
             pre: {
-              fontFamily:
-                'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace',
-              paddingBottom: '.5rem'
+              fontFamily: fontMono,
+              paddingBottom: '.5rem',
+              backgroundColor: '#f6f6f6',
+              color: '#999'
             },
             a: {
               wordBreak: 'break-all'
