@@ -19,13 +19,18 @@ export default function Home({ list }) {
         <div className="flex-col">
           {list.map((item) => {
             return (
-              <div key={item.id} className="text-dark-100 dark:text-light-700">
-                <Link href={`/posts/${item.slug}`}>
-                  <div className="text-xl font-bold cursor-pointer font-serif">○ {item.title}</div>
-                </Link>
-                <div className="text-sm cursor-pointer ml-5 font-monospace">
-                  {' '}
-                  {timeFormat(item.created_at)}
+              <div key={item.id} className="text-dark-100 dark:text-light-700 flex gap-4">
+                <div> ○ </div>
+                <div>
+                  <Link href={`/posts/${item.slug}`}>
+                    <div className="text-xl font-bold cursor-pointer font-serif underline decoration-transparent hover:decoration-current duration-500 transition-all">
+                      {item.title}
+                    </div>
+                  </Link>
+                  <div className="text-sm cursor-pointer font-monospace">
+                    {' '}
+                    {timeFormat(item.created_at)}
+                  </div>
                 </div>
               </div>
             )

@@ -67,7 +67,11 @@ export default defineConfig({
             },
             pre: {
               fontFamily:
-                'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace'
+                'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace',
+              paddingBottom: '.5rem'
+            },
+            a: {
+              wordBreak: 'break-all'
             }
           }
         }
