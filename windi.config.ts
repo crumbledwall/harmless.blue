@@ -47,7 +47,10 @@ export default defineConfig({
         dark: {
           css: {
             pre: {
-              backgroundColor: '#222'
+              backgroundColor: '#222',
+              'code::-webkit-scrollbar-thumb': {
+                backgroundColor: '#666'
+              }
             },
             a: {
               color: '#aaa'
@@ -85,11 +88,24 @@ export default defineConfig({
               fontFamily: fontSerif
             },
             pre: {
+              'code::-webkit-scrollbar': {
+                height: '.25rem'
+              },
+              'code::-webkit-scrollbar-thumb': {
+                backgroundColor: '#ccc',
+                borderRadius: '.25rem'
+              },
+              'code.hljs': {
+                padding: 'unset'
+              },
+              overflowY: 'hidden',
               fontFamily: fontMono,
               paddingBottom: '.5rem',
               backgroundColor: '#f6f6f6',
-              color: '#999'
+              color: '#999',
+              scrollbarColor: '#888 #0000'
             },
+
             a: {
               wordBreak: 'break-all',
               color: '#888'

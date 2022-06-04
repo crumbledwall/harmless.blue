@@ -2,9 +2,13 @@ import Head from 'next/head'
 import { BLOG } from '@/blog.config'
 
 const PageHead = ({ PageName }) => {
+  const getScheme = () => {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
   return (
     <>
       <Head>
+        <meta content={getScheme()} name="color-scheme" />
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta httpEquiv="X-UA-Compatible" content="IE=Edge, chrome=1" />
         <meta name="referrer" content="no-referrer" />
@@ -12,9 +16,9 @@ const PageHead = ({ PageName }) => {
         <meta
           name="viewport"
           content="width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        user-scalable=0"
+          initial-scale=1.0,
+          maximum-scale=1.0,
+          user-scalable=0"
         />
         <meta name="description" content={BLOG.siteName} />
         <meta property="og:title" content={BLOG.siteName} />
