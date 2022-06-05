@@ -96,7 +96,8 @@ export default defineConfig({
                 borderRadius: '.25rem'
               },
               'code.hljs': {
-                padding: 'unset'
+                padding: 'unset',
+                scrollbarWidth: 'thin'
               },
               overflowY: 'hidden',
               fontFamily: fontMono,
