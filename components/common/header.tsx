@@ -11,13 +11,15 @@ const PageHeader = () => {
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>
             <Link href="/">
-              <Image
-                src="/avatar.png"
-                alt="avatar"
-                width="150px"
-                height="150px"
-                className="rounded-full cursor-pointer"
-              />
+              <>
+                <Image
+                  src="/avatar.png"
+                  alt="avatar"
+                  width="150px"
+                  height="150px"
+                  className="rounded-full cursor-pointer"
+                />
+              </>
             </Link>
           </div>
           <div className="w-full flex flex-col items-center md:items-start">
@@ -31,9 +33,11 @@ const PageHeader = () => {
       <div className="mx-4 mb-4 flex items-center justify-center md:justify-end">
         <div className="flex flex-row gap-4 font-bold font-mono">
           <Link href="/">
-            <div className="text-lg cursor-pointer flex items-center gap-2">
-              <FontAwesomeIcon icon={faBarsStaggered} title="Posts" />
-            </div>
+            <label title="Posts">
+              <div className="text-lg cursor-pointer flex items-center gap-2">
+                <FontAwesomeIcon icon={faBarsStaggered} />
+              </div>
+            </label>
           </Link>
           {
             // to bo done
@@ -44,9 +48,11 @@ const PageHeader = () => {
           </Link> */
           }
           <Link href="/about">
-            <div className="text-lg cursor-pointer flex items-center gap-2">
-              <FontAwesomeIcon icon={faUserAstronaut} title="About" />
-            </div>
+            <label title="About">
+              <div className="text-lg cursor-pointer flex items-center gap-2">
+                <FontAwesomeIcon icon={faUserAstronaut} />
+              </div>
+            </label>
           </Link>
         </div>
       </div>
