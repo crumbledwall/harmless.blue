@@ -1,6 +1,6 @@
 const BLOG = {
   link: 'https://harmless.blue/',
-  siteName: "CRUMBLEDWALL'S NOTES",
+  siteName: 'CRUMBLEDWALL',
   perPage: 10,
   description: 'Keep Curious.',
   startYear: 2018
