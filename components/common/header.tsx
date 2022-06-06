@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserAstronaut, faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
+import { faLink, faUserAstronaut, faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
 import { BLOG } from '@/blog.config'
 
 const PageHeader = () => {
@@ -11,15 +11,14 @@ const PageHeader = () => {
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>
             <Link href="/">
-              <>
+              <div className="relative h-20 w-20 md:(h-32 w-32)">
                 <Image
                   src="/avatar.png"
                   alt="avatar"
-                  width="150px"
-                  height="150px"
+                  layout="fill"
                   className="rounded-full cursor-pointer"
                 />
-              </>
+              </div>
             </Link>
           </div>
           <div className="w-full flex flex-col items-center md:items-start">
@@ -39,14 +38,13 @@ const PageHeader = () => {
               </div>
             </label>
           </Link>
-          {
-            // to bo done
-            /* <Link href="/friends">
-            <div className="text-lg cursor-pointer flex items-center gap-2">
-              <FontAwesomeIcon icon={faLink} title="Friends" />
-            </div>
-          </Link> */
-          }
+          <Link href="/friends">
+            <label title="Friends">
+              <div className="text-lg cursor-pointer flex items-center gap-2">
+                <FontAwesomeIcon icon={faLink} />
+              </div>
+            </label>
+          </Link>
           <Link href="/about">
             <label title="About">
               <div className="text-lg cursor-pointer flex items-center gap-2">
@@ -54,6 +52,14 @@ const PageHeader = () => {
               </div>
             </label>
           </Link>
+          {
+            /* <label title="Theme">
+            <div className="text-lg cursor-pointer flex items-center gap-2">
+              <FontAwesomeIcon icon={faSun} />
+            </div>
+            </label> */
+            // to-do
+          }
         </div>
       </div>
     </div>

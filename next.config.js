@@ -6,4 +6,7 @@ module.exports = {
     config.plugins.push(new WindiCSSWebpackPlugin())
     return config
   },
+  images: {
+    domains: ['thirdqq.qlogo.cn']
+  }
 }
