@@ -20,6 +20,7 @@ export default function Post() {
                         alt={friend.name}
                         className="rounded-xl"
                         layout="fill"
+                        priority={true}
                       ></Image>
                     </div>
                     <div className="flex flex-col justify-center">

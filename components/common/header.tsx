@@ -17,6 +17,7 @@ const PageHeader = () => {
                   alt="avatar"
                   layout="fill"
                   className="rounded-full cursor-pointer"
+                  priority={true}
                 />
               </div>
             </Link>
