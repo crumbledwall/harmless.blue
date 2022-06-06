@@ -12,15 +12,13 @@ export default function Layout({
   return (
     <>
       <Head PageName={pageName} />
-      <body className="dark:bg-dark-800 bg-light-100">
-        <div className="flex flex-col items-center">
-          <div className="w-full md:w-198 px-8 min-h-screen flex flex-col items-center">
-            <Header />
-            <div className="flex-1 flex-col items-center w-full">{children}</div>
-            <Footer />
-          </div>
+      <div className="flex flex-col items-center">
+        <div className="w-full md:w-198 px-8 min-h-screen flex flex-col items-center">
+          <Header />
+          <div className="flex-1 flex-col items-center w-full">{children}</div>
+          <Footer />
         </div>
-      </body>
+      </div>
     </>
   )
 }

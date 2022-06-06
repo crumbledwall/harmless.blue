@@ -2,6 +2,7 @@ import Layout from '@/components/common/layout'
 import { getList } from '@/lib/yuque'
 import { timeFormat } from '@/lib/time'
 import Link from 'next/link'
+import { BLOG } from '@/blog.config'
 
 export async function getStaticProps() {
   const list = await getList()
@@ -14,7 +15,7 @@ export async function getStaticProps() {
 
 export default function Home({ list }) {
   return (
-    <Layout pageName="home">
+    <Layout pageName={BLOG.siteName}>
       <div className="flex-1 flex flex-col my-8 w-full ">
         <div className="flex-col">
           {list.map((item) => {
