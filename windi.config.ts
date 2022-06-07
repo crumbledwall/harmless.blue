@@ -60,6 +60,7 @@ export default defineConfig({
               'code::-webkit-scrollbar-thumb': {
                 backgroundColor: '#666'
               },
+              color: '#c0c0b7',
               scrollbarColor: '#888 #0000'
             },
             a: {
@@ -113,7 +114,7 @@ export default defineConfig({
               fontFamily: fontMono,
               paddingBottom: '.5rem',
               backgroundColor: '#f6f6f6',
-              color: '#999',
+              color: '#74809b',
               scrollbarColor: '#ccc #0000'
             },
 
