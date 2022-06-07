@@ -5,7 +5,7 @@ import { BLOG } from '@/blog.config'
 
 export default function Post() {
   return (
-    <Layout pageName="friends">
+    <Layout pageName="FRIENDS">
       <div className="flex flex-col items-start py-5 dark:text-light-700">
         <div className="text-3xl md:text-4xl font-bold mt-5 font-serif"></div>
         <article className="w-full">
