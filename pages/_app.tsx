@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'windi.css'
 config.autoAddCss = false
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <Component {...pageProps} />
@@ -12,4 +12,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default App
