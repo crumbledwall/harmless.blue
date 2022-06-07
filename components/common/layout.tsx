@@ -13,7 +13,7 @@ export default function Layout({
     <>
       <Head PageName={pageName} />
       <div className="flex flex-col items-center">
-        <div className="w-full md:w-196 px-8 min-h-screen flex flex-col items-center">
+        <div className="w-full md:w-186 px-8 min-h-screen flex flex-col items-center">
           <Header />
           <div className="flex-1 flex-col items-center w-full">{children}</div>
           <Footer />
