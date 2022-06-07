@@ -1,20 +1,10 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
 import { BLOG } from '@/blog.config'
 
 const PageHead = ({ PageName }) => {
-  const [scheme, setScheme] = useState('light')
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setScheme('dark')
-    }
-  }, [])
-
   return (
     <>
       <Head>
-        <meta content={scheme} name="color-scheme" />
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta httpEquiv="X-UA-Compatible" content="IE=Edge, chrome=1" />
         <meta name="referrer" content="no-referrer" />

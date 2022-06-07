@@ -24,7 +24,7 @@ export default function Home({ list }) {
                 <div> ○ </div>
                 <div>
                   <Link href={`/posts/${item.slug}`}>
-                    <div className="text-xl font-bold cursor-pointer font-serif underline decoration-transparent hover:decoration-current duration-500 transition-all">
+                    <div className="text-xl font-bold cursor-pointer font-serif underline decoration-transparent hover:decoration-current duration-500 transition-decoration">
                       {item.title}
                     </div>
                   </Link>

@@ -6,9 +6,13 @@ const fontSerif =
 const fontMono = 'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace'
 
 export default defineConfig({
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     extend: {
+      transitionProperty: {
+        border: 'border',
+        decoration: 'text-decoration-color'
+      },
       fontFamily: {
         sans: [
           'Roboto',
@@ -50,7 +54,8 @@ export default defineConfig({
               backgroundColor: '#222',
               'code::-webkit-scrollbar-thumb': {
                 backgroundColor: '#666'
-              }
+              },
+              scrollbarColor: '#888 #0000'
             },
             a: {
               color: '#aaa'
@@ -103,8 +108,10 @@ export default defineConfig({
               fontFamily: fontMono,
               paddingBottom: '.5rem',
               backgroundColor: '#f6f6f6',
+              transitionProperty: 'background-color',
+              transitionDuration: '200ms',
               color: '#999',
-              scrollbarColor: '#888 #0000'
+              scrollbarColor: '#ccc #0000'
             },
 
             a: {

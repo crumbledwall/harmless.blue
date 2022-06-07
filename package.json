@@ -12,6 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "dayjs": "^1.11.2",
     "next": "latest",
+    "next-themes": "^0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "rehype-highlight": "^5.0.2",

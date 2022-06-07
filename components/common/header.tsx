@@ -1,12 +1,21 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLink, faUserAstronaut, faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLink,
+  faUserAstronaut,
+  faBarsStaggered,
+  faSun,
+  faMoon
+} from '@fortawesome/free-solid-svg-icons'
 import { BLOG } from '@/blog.config'
 
 const PageHeader = () => {
+  const { resolvedTheme, setTheme } = useTheme()
+
   return (
-    <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
+    <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700 duration-200 transition-border">
       <div className="w-full">
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>
@@ -53,14 +62,26 @@ const PageHeader = () => {
               </div>
             </label>
           </Link>
-          {
-            /* <label title="Theme">
+          <label title="Theme">
             <div className="text-lg cursor-pointer flex items-center gap-2">
-              <FontAwesomeIcon icon={faSun} />
+              {resolvedTheme === 'light' ? (
+                <FontAwesomeIcon
+                  icon={faSun}
+                  onClick={() => {
+                    setTheme('dark')
+                  }}
+                />
+              ) : null}
+              {resolvedTheme === 'dark' ? (
+                <FontAwesomeIcon
+                  icon={faMoon}
+                  onClick={() => {
+                    setTheme('light')
+                  }}
+                />
+              ) : null}
             </div>
-            </label> */
-            // to-do
-          }
+          </label>
         </div>
       </div>
     </div>
