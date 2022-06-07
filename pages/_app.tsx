@@ -1,9 +1,8 @@
-import 'windi.css'
+import { ThemeProvider } from 'next-themes'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import 'windi.css'
 config.autoAddCss = false
-
-import { ThemeProvider } from 'next-themes'
 
 function MyApp({ Component, pageProps }) {
   return (

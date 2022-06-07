@@ -15,7 +15,7 @@ const PageHeader = () => {
   const { resolvedTheme, setTheme } = useTheme()
 
   return (
-    <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700 duration-200 transition-border">
+    <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
       <div className="w-full">
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>

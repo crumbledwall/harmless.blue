@@ -108,8 +108,6 @@ export default defineConfig({
               fontFamily: fontMono,
               paddingBottom: '.5rem',
               backgroundColor: '#f6f6f6',
-              transitionProperty: 'background-color',
-              transitionDuration: '200ms',
               color: '#999',
               scrollbarColor: '#ccc #0000'
             },
