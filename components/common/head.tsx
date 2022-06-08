@@ -17,7 +17,7 @@ const PageHead = ({ PageName }) => {
           user-scalable=0"
         />
         <meta name="description" content={BLOG.siteName} />
-        <meta property="og:title" content={BLOG.siteName} />
+        <meta property="og:title" content={PageName} />
         <meta property="og:type" content="Website" />
         <meta property="og:url" content={BLOG.link} />
         <meta property="og:image" content="/favicon.svg" />
