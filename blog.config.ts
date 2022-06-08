@@ -8,14 +8,14 @@ const BLOG = {
   friends: [
     {
       name: 'Cosmos',
-      link: 'https://cosmos.red/',
-      description: 'Web 开发/Go',
+      link: 'https://m-cosmosss.github.io/',
+      description: 'Dev/Web/Go',
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=DeoVVf2K18Ou5oeFOQU3dQ&s=640'
     },
     {
       name: 'E99p1ant',
       link: 'https://github.red/',
-      description: 'Web CTFer/GO',
+      description: 'CTF/Web/GO/全栈',
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=AJQ9RJRCavhSibMZtRq2JOQ&s=640'
     },
     {
@@ -27,7 +27,7 @@ const BLOG = {
     {
       name: 'Annevi',
       link: 'https://annevi.cn/',
-      description: 'Web CTFer/GO/渗透',
+      description: 'CTF/Web/GO/渗透',
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=WN9x96MpjSJ3Gc7a3SHtDw&s=640'
     },
     {

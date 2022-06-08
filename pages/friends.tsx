@@ -25,7 +25,7 @@ export default function Post() {
                     </div>
                     <div className="flex flex-col justify-center">
                       <div className="text-lg sm:text-2xl font-bold">{friend.name}</div>
-                      <div className="text-sm sm:text-lg font-mono overflow-ellipsis">
+                      <div className="text-sm sm:text-lg font-monospace overflow-ellipsis">
                         {friend.description}
                       </div>
                     </div>

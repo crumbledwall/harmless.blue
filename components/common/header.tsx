@@ -40,7 +40,7 @@ const PageHeader = () => {
         </div>
       </div>
       <div className="mx-4 mb-4 flex items-center justify-center md:justify-end">
-        <div className="flex flex-row gap-4 font-bold font-mono">
+        <div className="flex flex-row gap-4 font-bold font-monospace">
           <Link href="/">
             <label title="Posts">
               <div className="text-lg cursor-pointer flex items-center gap-2">

@@ -44,12 +44,12 @@ export default defineConfig({
           'Consolas',
           'Courier New',
           'Courier',
-          'monospace',
           'PingFang SC',
           'Hiragino Sans GB',
           'Microsoft YaHei',
           'WenQuanYi Micro Hei',
-          'Noto Sans CJK'
+          'Noto Sans CJK',
+          'monospace'
         ]
       },
       typography: {
