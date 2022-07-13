@@ -8,7 +8,7 @@ const PageHead = ({ PageName }) => {
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta httpEquiv="X-UA-Compatible" content="IE=Edge, chrome=1" />
         <meta name="referrer" content="no-referrer" />
-        <link rel="shortcut icon" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.png" />
         <meta
           name="viewport"
           content="width=device-width,
