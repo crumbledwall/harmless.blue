@@ -16,8 +16,10 @@ export default function Post() {
                   <div className="flex gap-8 cursor-pointer">
                     <div className="w-12 h-12 sm:(w-20 h-20) md:(w-24 h-24) relative">
                       <Image
+                        loader={({ src }) => src}
                         src={friend.avatar}
                         alt={friend.name}
+                        unoptimized={true}
                         className="rounded-xl"
                         layout="fill"
                         priority={true}

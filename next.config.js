@@ -8,5 +8,10 @@ module.exports = {
   },
   images: {
     domains: ['thirdqq.qlogo.cn']
+  },
+  experimental: {
+    images: {
+      unoptimized: true
+    }
   }
 }
