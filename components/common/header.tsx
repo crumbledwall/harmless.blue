@@ -42,7 +42,6 @@ const PageHeader = () => {
                   placeholder={'blur'}
                   blurDataURL="/placeholder.png"
                   className="rounded-full cursor-pointer"
-                  style={{ borderRadius: '9999px' }}
                   priority={true}
                 />
               </div>
