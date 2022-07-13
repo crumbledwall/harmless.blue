@@ -18,9 +18,6 @@ const PageHeader = () => {
 
   useEffect(() => setHasMounted(true), [])
 
-  // this line is the key to avoid the error.
-  if (!hasMounted) return null
-
   return (
     <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
       <div className="w-full">
@@ -69,26 +66,28 @@ const PageHeader = () => {
               </div>
             </label>
           </Link>
-          <label title="Theme">
-            <div className="text-lg cursor-pointer flex items-center gap-2">
-              {resolvedTheme === 'light' ? (
-                <FontAwesomeIcon
-                  icon={faSun}
-                  onClick={() => {
-                    setTheme('dark')
-                  }}
-                />
-              ) : null}
-              {resolvedTheme === 'dark' ? (
-                <FontAwesomeIcon
-                  icon={faMoon}
-                  onClick={() => {
-                    setTheme('light')
-                  }}
-                />
-              ) : null}
-            </div>
-          </label>
+          {hasMounted && (
+            <label title="Theme">
+              <div className="text-lg cursor-pointer flex items-center gap-2">
+                {resolvedTheme === 'light' ? (
+                  <FontAwesomeIcon
+                    icon={faSun}
+                    onClick={() => {
+                      setTheme('dark')
+                    }}
+                  />
+                ) : null}
+                {resolvedTheme === 'dark' ? (
+                  <FontAwesomeIcon
+                    icon={faMoon}
+                    onClick={() => {
+                      setTheme('light')
+                    }}
+                  />
+                ) : null}
+              </div>
+            </label>
+          )}
         </div>
       </div>
     </div>
