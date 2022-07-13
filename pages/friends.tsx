@@ -14,13 +14,14 @@ export default function Post() {
               return (
                 <Link href={friend.link} key={friend.name}>
                   <div className="flex gap-8 cursor-pointer">
-                    <div className="w-12 h-12 sm:(w-20 h-20) md:(w-24 h-24) relative">
+                    <div className="w-12 h-12 sm:(w-20 h-20) md:(w-24 h-24) relative rounded-xl overflow-hidden">
                       <Image
                         loader={({ src }) => src}
                         src={friend.avatar}
                         alt={friend.name}
+                        placeholder={'blur'}
+                        blurDataURL="/placeholder.png"
                         unoptimized={true}
-                        className="rounded-xl"
                         layout="fill"
                         priority={true}
                       ></Image>

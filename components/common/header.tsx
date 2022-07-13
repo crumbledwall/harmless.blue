@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { createUseStyles } from 'react-jss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faLink,
@@ -19,29 +18,20 @@ const PageHeader = () => {
 
   useEffect(() => setHasMounted(true), [])
 
-  const useStyles = createUseStyles({
-    avatar: {
-      '& span': {
-        borderRadius: '100%'
-      }
-    }
-  })
-  const classes = useStyles()
-
   return (
     <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
       <div className="w-full">
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>
             <Link href="/">
-              <div className={`relative h-20 w-20 md:(h-32 w-32) rounded-full ${classes.avatar}`}>
+              <div className="relative h-20 w-20 md:(h-32 w-32) rounded-full overflow-hidden">
                 <Image
                   src="/avatar.png"
                   alt="avatar"
                   layout="fill"
                   placeholder={'blur'}
                   blurDataURL="/placeholder.png"
-                  className="rounded-full cursor-pointer"
+                  className="cursor-pointer"
                   priority={true}
                 />
               </div>
