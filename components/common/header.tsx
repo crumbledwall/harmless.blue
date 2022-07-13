@@ -24,11 +24,13 @@ const PageHeader = () => {
         <div className="flex items-center gap-8 px-4 py-5 w-full flex-col md:flex-row md:pb-0">
           <div>
             <Link href="/">
-              <div className="relative h-20 w-20 md:(h-32 w-32)">
+              <div className="relative h-20 w-20 md:(h-32 w-32) rounded-full">
                 <Image
                   src="/avatar.png"
                   alt="avatar"
                   layout="fill"
+                  placeholder={'blur'}
+                  blurDataURL="/placeholder.svg"
                   className="rounded-full cursor-pointer"
                   priority={true}
                 />
