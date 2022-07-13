@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -7,16 +6,19 @@ import {
   faLink,
   faUserAstronaut,
   faBarsStaggered,
-  faSun,
-  faMoon
+  faCircleHalfStroke
 } from '@fortawesome/free-solid-svg-icons'
 import { BLOG } from '@/blog.config'
 
 const PageHeader = () => {
   const { resolvedTheme, setTheme } = useTheme()
-  const [hasMounted, setHasMounted] = useState(false)
 
-  useEffect(() => setHasMounted(true), [])
+  const changeTheme = () => {
+    if (resolvedTheme === 'light') {
+      return setTheme('dark')
+    }
+    return setTheme('light')
+  }
 
   return (
     <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
@@ -68,28 +70,11 @@ const PageHeader = () => {
               </div>
             </label>
           </Link>
-          {hasMounted && (
-            <label title="Theme">
-              <div className="text-lg cursor-pointer flex items-center gap-2">
-                {resolvedTheme === 'light' ? (
-                  <FontAwesomeIcon
-                    icon={faSun}
-                    onClick={() => {
-                      setTheme('dark')
-                    }}
-                  />
-                ) : null}
-                {resolvedTheme === 'dark' ? (
-                  <FontAwesomeIcon
-                    icon={faMoon}
-                    onClick={() => {
-                      setTheme('light')
-                    }}
-                  />
-                ) : null}
-              </div>
-            </label>
-          )}
+          <label title="Theme">
+            <div className="text-lg cursor-pointer flex items-center gap-2">
+              <FontAwesomeIcon icon={faCircleHalfStroke} onClick={changeTheme} />
+            </div>
+          </label>
         </div>
       </div>
     </div>
