@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -13,6 +14,12 @@ import { BLOG } from '@/blog.config'
 
 const PageHeader = () => {
   const { resolvedTheme, setTheme } = useTheme()
+  const [hasMounted, setHasMounted] = useState(false)
+
+  useEffect(() => setHasMounted(true), [])
+
+  // this line is the key to avoid the error.
+  if (!hasMounted) return null
 
   return (
     <div className="w-full flex flex-col justify-center border-b-2 border-light-900 dark:border-dark-50 dark:text-light-700">
