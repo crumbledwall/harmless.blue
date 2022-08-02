@@ -32,7 +32,7 @@ const BLOG = {
     },
     {
       name: '0x4qe',
-      link: 'https://annevi.cn/',
+      link: 'https://0727.site/',
       description: 'CTF/Web/前端',
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=K7icYial1VVzlNl7hrD9MlNw&s=640'
     },
