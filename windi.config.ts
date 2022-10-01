@@ -1,7 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 
 const fontSerif =
-  'Georgia,Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
+  'Times New Roman,PMingLiu,STSong,SimSun,WenQuanYi Bitmap Song,Noto Serif CJK,serif'
 
 const fontMono = 'JetBrainsMono,Source Code Pro,Monaco,Menlo,Consolas,Courier New,Courier,monospace'
 
@@ -27,7 +27,6 @@ export default defineConfig({
           'sans-serif'
         ],
         serif: [
-          'Georgia',
           'Times New Roman',
           'PMingLiu',
           'STSong',
@@ -134,10 +133,12 @@ export default defineConfig({
             },
             p: {
               code: {
+                fontFamily: fontMono,
                 margin: '0 .25rem',
-                padding: '0 .25rem',
+                padding: '.15rem .25rem',
                 borderRadius: '.25rem',
-                backgroundColor: '#eee'
+                backgroundColor: '#eee',
+                wordBreak: 'break-all'
               },
               'code:after': {
                 content: 'unset'
