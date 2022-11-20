@@ -9,7 +9,7 @@ export default function Post({ postData }) {
     <Layout pageName={postData?.title}>
       <div className="flex flex-col items-start py-5 dark:text-light-700">
         <div className="text-3xl md:text-4xl font-bold mt-5 font-serif">{postData?.title}</div>
-        <div className="my-4 font-monospace">{timeFormat(postData?.time)}</div>
+        <div className="my-4 font-monospace text-gray-400 dark:text-neutral-500">{timeFormat(postData?.time)}</div>
         <article className="prose max-w-none w-full dark:prose-dark">
           {postData ? parseMarkdown(postData.content) : ''}
         </article>
