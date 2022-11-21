@@ -1,5 +1,5 @@
-import Layout from '@/components/common/layout'
-import { getPost } from '@/lib/yuque'
+import Layout from '@/components/layout'
+import { getPost } from '@/lib/notion'
 import { parseMarkdown } from '@/lib/paser'
 import { timeFormat } from '@/lib/time'
 import 'highlight.js/styles/codepen-embed.css'

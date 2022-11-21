@@ -1,6 +1,6 @@
-import Head from '@/components/common/head'
-import Header from '@/components/common/header'
-import Footer from '@/components/common/footer'
+import Head from '@/components/head'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 export default function Layout({
   children,

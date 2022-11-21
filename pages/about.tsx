@@ -1,5 +1,5 @@
-import Layout from '@/components/common/layout'
-import { getAbout } from '@/lib/yuque'
+import Layout from '@/components/layout'
+import { getAbout } from '@/lib/notion'
 import { parseMarkdown } from '@/lib/paser'
 
 export default function Post({ postData }) {
@@ -17,6 +17,7 @@ export default function Post({ postData }) {
 
 export const getStaticProps = async () => {
   const postData = await getAbout()
+  console.log(postData.title)
   return {
     props: {
       postData
