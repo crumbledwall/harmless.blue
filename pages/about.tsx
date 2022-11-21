@@ -17,7 +17,7 @@ export default function Post({ postData }) {
 
 export const getStaticProps = async () => {
   const postData = await getAbout()
-  console.log(postData.title)
+
   return {
     props: {
       postData
