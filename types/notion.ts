@@ -18,6 +18,11 @@ export interface pageContent {
         }
       ]
     }
+    Draft: {
+      select: {
+        name: string
+      }
+    }
     Description: {
       rich_text: [{
         plain_text: string

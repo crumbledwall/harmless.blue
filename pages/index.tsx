@@ -10,7 +10,8 @@ export async function getStaticProps() {
   return {
     props: {
       list
-    }
+    },
+    revalidate: 10
   }
 }
 
@@ -20,7 +21,7 @@ export default function Home({ list }) {
       <div className="flex-1 flex flex-col my-8 w-full ">
         <div className="flex flex-col gap-4">
           {list.map((item) => {
-            return (
+            return !item.draft ? (
               <div key={item.id} className="text-dark-100 dark:text-light-700 flex gap-4 my-4">
                 <div> ○ </div>
                 <div className="flex flex-col gap-4">
@@ -37,7 +38,7 @@ export default function Home({ list }) {
                   </div>
                 </div>
               </div>
-            )
+            ) : null
           })}
         </div>
       </div>

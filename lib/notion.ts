@@ -57,6 +57,7 @@ export const getList = async () => {
       title: item.properties.Name.title[0]?.plain_text,
       description: item.properties.Description.rich_text[0]?.plain_text,
       date: item.properties.Date.date.start,
+      draft: item.properties.Draft.select.name === "True",
       tags: []
     }
     item.properties.Tags.multi_select.forEach((tag) => {
