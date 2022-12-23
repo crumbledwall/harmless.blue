@@ -12,7 +12,7 @@ export default function Post() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2">
             {BLOG.friends.map((friend) => {
               return (
-                <Link href={friend.link} key={friend.name}>
+                <Link href={friend.link} key={friend.name} className="no-underline text-dark-100 dark:text-light-700">
                   <div className="flex gap-8 cursor-pointer">
                     <div className="w-12 h-12 sm:(w-20 h-20) md:(w-24 h-24) relative rounded-xl overflow-hidden">
                       <Image
@@ -20,7 +20,7 @@ export default function Post() {
                         src={friend.avatar}
                         alt={friend.name}
                         placeholder={'blur'}
-                        blurDataURL="/placeholder.png"
+                        blurDataURL="/placeholder.svg"
                         unoptimized={true}
                         layout="fill"
                         priority={true}

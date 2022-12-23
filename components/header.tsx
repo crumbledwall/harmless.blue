@@ -32,7 +32,7 @@ const PageHeader = () => {
                   alt="avatar"
                   fill
                   placeholder={'blur'}
-                  blurDataURL="/placeholder.png"
+                  blurDataURL="/placeholder.svg"
                   className="cursor-pointer"
                   priority={true}
                 />
