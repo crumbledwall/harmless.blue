@@ -30,7 +30,7 @@ const PageHeader = () => {
                 <Image
                   src="/avatar.png"
                   alt="avatar"
-                  layout="fill"
+                  fill
                   placeholder={'blur'}
                   blurDataURL="/placeholder.png"
                   className="cursor-pointer"
@@ -49,28 +49,28 @@ const PageHeader = () => {
       </div>
       <div className="mx-4 mb-4 flex items-center justify-center md:justify-end">
         <div className="flex flex-row gap-4 font-bold font-monospace">
-          <Link href="/">
+          <Link href="/" className="text-dark-100 dark:text-light-700">
             <label title="Posts">
               <div className="text-lg cursor-pointer flex items-center gap-2">
                 <FontAwesomeIcon icon={faBarsStaggered} />
               </div>
             </label>
           </Link>
-          <Link href="/friends">
+          <Link href="/friends" className="text-dark-100 dark:text-light-700">
             <label title="Friends">
               <div className="text-lg cursor-pointer flex items-center gap-2">
                 <FontAwesomeIcon icon={faLink} />
               </div>
             </label>
           </Link>
-          <Link href="/about">
+          <Link href="/about" className="text-dark-100 dark:text-light-700">
             <label title="About">
               <div className="text-lg cursor-pointer flex items-center gap-2">
                 <FontAwesomeIcon icon={faUserAstronaut} />
               </div>
             </label>
           </Link>
-          <label title="Theme">
+          <label title="Theme" className="text-dark-100 dark:text-light-700">
             <div className="text-lg cursor-pointer flex items-center gap-2">
               <FontAwesomeIcon icon={faCircleHalfStroke} onClick={changeTheme} />
             </div>
