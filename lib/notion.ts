@@ -12,6 +12,21 @@ const notion = new Client({
 
 const n2m = new NotionToMarkdown({ notionClient: notion })
 
+const filterUrl = (url: string, id: string) =>{
+  const originalUrl = new URL(url)
+  const result = new URL(`https://www.notion.so/image/${encodeURIComponent(`https://${originalUrl.host}${originalUrl.pathname}`)}`)
+  result.searchParams.set('table', 'block')
+  result.searchParams.set('id', id)
+  result.searchParams.set('cache', 'v2')
+  return result.toString()
+}
+n2m.setCustomTransformer('image', async (block) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const image = block as any
+  const caption = image.caption ? image.caption[0] : ''
+  return `![${caption}](${filterUrl(image.image.file.url, image.id)})`;
+});
+
 const getContents = async (pageId: string) => {
   const pageData = (await notion.pages.retrieve({ page_id: pageId })) as unknown as pageContent
   const blocks = await n2m.pageToMarkdown(pageId)

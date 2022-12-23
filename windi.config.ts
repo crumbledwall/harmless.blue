@@ -78,7 +78,10 @@ export default defineConfig({
         DEFAULT: {
           css: {
             img: {
-              width: '100%'
+              width: '100%',
+              marginTop: '0px',
+              marginBottom: '0px',
+              position: 'unset !important'
             },
             blockquote: {
               p: {

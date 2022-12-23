@@ -7,11 +7,6 @@ module.exports = {
     return config
   },
   images: {
-    domains: ['thirdqq.qlogo.cn']
-  },
-  experimental: {
-    images: {
-      unoptimized: true
-    }
+    domains: ['thirdqq.qlogo.cn', 'www.notion.so']
   }
 }
