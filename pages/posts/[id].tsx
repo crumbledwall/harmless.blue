@@ -2,7 +2,6 @@ import Layout from '@/components/layout'
 import { getPost } from '@/lib/notion'
 import { parseMarkdown } from '@/lib/paser'
 import { timeFormat } from '@/lib/time'
-import 'highlight.js/styles/codepen-embed.css'
 
 export default function Post({ postData }) {
   return (
