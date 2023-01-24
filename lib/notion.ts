@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
 import { NotionToMarkdown } from 'notion-to-md'
-import type { pageContent } from '@/types/notion'
+import type { PageContent } from '@/types/notion'
 
 const blogDatabase = process.env.BLOG_DATABASE
 const notionToken = process.env.NOTION_TOKEN
@@ -28,7 +28,7 @@ n2m.setCustomTransformer('image', async (block) => {
 });
 
 const getContents = async (pageId: string) => {
-  const pageData = (await notion.pages.retrieve({ page_id: pageId })) as unknown as pageContent
+  const pageData = (await notion.pages.retrieve({ page_id: pageId })) as unknown as PageContent
   const blocks = await n2m.pageToMarkdown(pageId)
   const tags = []
   pageData.properties.Tags?.multi_select.forEach((tag) => {
@@ -63,7 +63,7 @@ const queryDatabase = async (dbId: string) => {
 }
 
 export const getList = async () => {
-  const res = (await queryDatabase(blogDatabase)) as unknown as pageContent[]
+  const res = (await queryDatabase(blogDatabase)) as unknown as PageContent[]
   const result = []
 
   res.forEach((item) => {

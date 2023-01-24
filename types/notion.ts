@@ -1,4 +1,4 @@
-export interface pageContent {
+export interface PageContent {
   id: string
   properties: {
     title: {

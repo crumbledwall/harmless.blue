@@ -2,10 +2,16 @@ import Layout from '@/components/layout'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BLOG } from '@/blog.config'
+import { pageLink } from '@/lib/link'
 
 export default function Post() {
   return (
-    <Layout pageName="FRIENDS">
+    <Layout pageInfo={{
+      pageName: 'Friends',
+      description: 'My Friends',
+      link: pageLink('friends', 'page'),
+      type: 'article',
+    }}>
       <div className="flex flex-col items-start py-5 dark:text-light-700">
         <div className="text-3xl md:text-4xl font-bold mt-5 font-serif"></div>
         <article className="w-full">

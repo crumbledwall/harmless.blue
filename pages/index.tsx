@@ -17,7 +17,12 @@ export async function getStaticProps() {
 
 export default function Home({ list }) {
   return (
-    <Layout pageName={BLOG.siteName}>
+    <Layout pageInfo={{
+      pageName: BLOG.siteName,
+      description: BLOG.siteName,
+      link: BLOG.link,
+      type: 'website',
+    }}>
       <div className="flex-1 flex flex-col my-8 w-full">
         <div className="flex flex-col gap-4">
           {list.map((item) => {

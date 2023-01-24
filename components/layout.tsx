@@ -1,17 +1,18 @@
 import Head from '@/components/head'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import type { PageInfo } from '@/types/page'
 
 export default function Layout({
   children,
-  pageName
+  pageInfo
 }: {
   children: React.ReactNode
-  pageName: string
+  pageInfo: PageInfo
 }) {
   return (
     <>
-      <Head PageName={pageName} />
+      <Head pageInfo={pageInfo} />
       <div className="flex flex-col items-center">
         <div className="w-full md:w-186 px-8 min-h-screen flex flex-col items-center">
           <Header />

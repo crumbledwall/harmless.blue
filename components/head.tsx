@@ -1,15 +1,14 @@
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import { BLOG } from '@/blog.config'
+import type { PageInfo } from '@/types/page'
 
-const PageHead = ({ PageName }) => {
+const PageHead = ({ pageInfo }: { pageInfo: PageInfo }) => {
   const { resolvedTheme } = useTheme()
   return (
     <>
       <Head>
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta httpEquiv="X-UA-Compatible" content="IE=Edge, chrome=1" />
-        <meta name="referrer" content="no-referrer" />
         <link rel="shortcut icon" href="/favicon.png" />
         <meta
           name="viewport"
@@ -18,15 +17,15 @@ const PageHead = ({ PageName }) => {
           maximum-scale=1.0,
           user-scalable=0"
         />
-        <meta name="description" content={BLOG.siteName} />
-        <meta property="og:title" content={PageName} />
-        <meta property="og:type" content="Website" />
-        <meta property="og:url" content={BLOG.link} />
+        <meta name="description" content={pageInfo.description} />
+        <meta property="og:title" content={pageInfo.pageName} />
+        <meta property="og:type" content={pageInfo.type} />
+        <meta property="og:url" content={pageInfo.link} />
         <meta property="og:image" content="/favicon.svg" />
-        <meta property="og:description" content={BLOG.siteName} />
+        <meta property="og:description" content={pageInfo.description} />
         <meta name="twitter:card" content="summary" />
         <link rel="stylesheet" type="text/css" href={resolvedTheme === 'light'?'/github.css':'/codepen-embed.css'} />
-        <title>{PageName}</title>
+        <title>{pageInfo.pageName}</title>
       </Head>
     </>
   )
