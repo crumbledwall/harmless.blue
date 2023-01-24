@@ -89,8 +89,10 @@ export const getPost = async (pageId: string) => {
   const res = await getContents(pageId)
 
   return {
+    id: res.id,
     title: res.title,
-    content: res.content
+    content: res.content,
+    description: res.description
   }
 }
 
