@@ -59,6 +59,12 @@ const BLOG = {
       link: 'https://r000setta.github.io/',
       description: 'C++/游戏引擎',
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=eQHtN69C2tgM8Ul8PmtTKw&s=640'
+    },
+    {
+      name: 'z3ratu1',
+      link: 'https://blog.z3ratu1.top/',
+      description: 'CTF/Web/Dev/渗透',
+      avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=Pm6FVKZy8SEhbXVjuxe9vg&kti=ZKLK8QAAAAE&s=640'
     }
   ]
 }
