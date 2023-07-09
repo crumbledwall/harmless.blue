@@ -12,9 +12,13 @@ const notion = new Client({
 
 const n2m = new NotionToMarkdown({ notionClient: notion })
 
-const filterUrl = (url: string, id: string) =>{
+const filterUrl = (url: string, id: string) => {
   const originalUrl = new URL(url)
-  const result = new URL(`https://www.notion.so/image/${encodeURIComponent(`https://${originalUrl.host}${originalUrl.pathname}`)}`)
+  const result = new URL(
+    `https://www.notion.so/image/${encodeURIComponent(
+      `https://${originalUrl.host}${originalUrl.pathname}`
+    )}`
+  )
   result.searchParams.set('table', 'block')
   result.searchParams.set('id', id)
   result.searchParams.set('cache', 'v2')
@@ -24,8 +28,8 @@ n2m.setCustomTransformer('image', async (block) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const image = block as any
   const caption = image.caption ? image.caption[0] : ''
-  return `![${caption}](${filterUrl(image.image.file.url, image.id)})`;
-});
+  return `![${caption}](${filterUrl(image.image.file.url, image.id)})`
+})
 
 const getContents = async (pageId: string) => {
   const pageData = (await notion.pages.retrieve({ page_id: pageId })) as unknown as PageContent
@@ -53,10 +57,12 @@ const queryDatabase = async (dbId: string) => {
     filter: {
       or: []
     },
-    sorts: [{
-      property: "Date",
-      direction: "descending"
-    }]
+    sorts: [
+      {
+        property: 'Date',
+        direction: 'descending'
+      }
+    ]
   })
 
   return res.results
@@ -72,7 +78,7 @@ export const getList = async () => {
       title: item.properties.Name.title[0]?.plain_text,
       description: item.properties.Description.rich_text[0]?.plain_text,
       date: item.properties.Date.date.start,
-      draft: item.properties.Draft.select.name === "True",
+      draft: item.properties.Draft.select.name === 'True',
       tags: []
     }
     item.properties.Tags.multi_select.forEach((tag) => {
@@ -92,6 +98,7 @@ export const getPost = async (pageId: string) => {
     id: res.id,
     title: res.title,
     content: res.content,
+    date: res.date,
     description: res.description
   }
 }
