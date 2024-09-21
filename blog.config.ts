@@ -19,12 +19,6 @@ const BLOG = {
       avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=AJQ9RJRCavhSibMZtRq2JOQ&s=640'
     },
     {
-      name: '稳赚',
-      link: 'https://wzyxv1n.top/',
-      description: 'ACMer/美工大佬',
-      avatar: 'https://thirdqq.qlogo.cn/g?b=sdk&k=96n5C3VZpBd0icGtwbdafSw&s=640'
-    },
-    {
       name: 'Annevi',
       link: 'https://annevi.cn/',
       description: 'CTF/Web/GO/渗透',
