@@ -1,5 +1,8 @@
 {
   "private": true,
+  "engines": {
+    "node": ">=20.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -7,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource/lxgw-wenkai-mono-tc": "^5.2.8",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",

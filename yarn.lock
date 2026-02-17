@@ -22,11 +22,6 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fontsource/lxgw-wenkai-mono-tc@^5.2.8":
-  version "5.2.8"
-  resolved "https://registry.npmjs.org/@fontsource/lxgw-wenkai-mono-tc/-/lxgw-wenkai-mono-tc-5.2.8.tgz"
-  integrity sha512-bw2NId2ya6ec8xQT7LGW2U9IRSfqg86o7moea4NpqJUFSM9qaspqccGUMFJJBTJK0Fau9DO7fqwyJqwz7Eyp2Q==
-
 "@fortawesome/fontawesome-common-types@6.2.1":
   version "6.2.1"
   resolved "https://registry.npmmirror.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.2.1.tgz"
