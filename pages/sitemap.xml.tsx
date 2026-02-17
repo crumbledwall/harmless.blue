@@ -1,7 +1,13 @@
+import { GetServerSideProps } from 'next'
 import { getList } from '@/lib/notion'
 import { BLOG } from '@/blog.config'
 
-function generateSiteMap(posts) {
+interface PostItem {
+  id: string
+  draft: boolean
+}
+
+function generateSiteMap(posts: PostItem[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
@@ -10,15 +16,19 @@ function generateSiteMap(posts) {
       <url>
         <loc>${BLOG.link}about</loc>
       </url>
-      ${posts.map(({ id, draft }) => {
-        if(!draft){
+      <url>
+        <loc>${BLOG.link}friends</loc>
+      </url>
+      ${posts
+        .filter(({ draft }) => !draft)
+        .map(({ id }) => {
           return `
             <url>
               <loc>${`${BLOG.link}posts/${id}`}</loc>
             </url>
           `
-        }
-      }).join('')}
+        })
+        .join('')}
     </urlset>
   `
 }
@@ -27,17 +37,17 @@ function SiteMap() {
   // empty
 }
 
-export async function getServerSideProps({ res }) {
-  const posts = await getList();
-  const sitemap = generateSiteMap(posts);
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const posts = await getList()
+  const sitemap = generateSiteMap(posts)
 
-  res.setHeader('Content-Type', 'text/xml');
-  res.write(sitemap);
-  res.end();
+  res.setHeader('Content-Type', 'text/xml')
+  res.write(sitemap)
+  res.end()
 
   return {
     props: {},
-  };
+  }
 }
 
-export default SiteMap;
+export default SiteMap

@@ -1,10 +1,13 @@
 import { BLOG } from '@/blog.config'
+
 const PageFooter = () => {
   return (
-    <div className="h-24 flex flex-col items-center justify-center font-monospace dark:text-gray-300 text-xs md:text-sm text-center">
-      Copyright @ {BLOG.startYear}-{new Date().getFullYear()} <br className="md:hidden" />
-      Crumbledwall{' '}
-    </div>
+    <footer className="py-10 flex flex-col items-center justify-center text-center">
+      <div className="w-8 h-px bg-light-300 dark:bg-dark-700 mb-6" />
+      <div className="text-xs text-dark-400 dark:text-dark-400 tracking-wider">
+        &copy; {BLOG.startYear}&ndash;{new Date().getFullYear()} {BLOG.nickname}
+      </div>
+    </footer>
   )
 }
 

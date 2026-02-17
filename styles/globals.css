@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth theme transition + font rendering */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection color */
+::selection {
+  background-color: #E8DAC5;
+  color: #261F19;
+}
+
+.dark ::selection {
+  background-color: #3A3128;
+  color: #EDE4D8;
+}
+
+/* Custom scrollbar styles */
+pre code::-webkit-scrollbar {
+  height: 0.25rem;
+}
+
+pre code::-webkit-scrollbar-thumb {
+  background-color: #C4B49C;
+  border-radius: 0.25rem;
+}
+
+.dark pre code::-webkit-scrollbar-thumb {
+  background-color: #564A3C;
+}
+
+pre code {
+  scrollbar-color: #C4B49C transparent;
+}
+
+.dark pre code {
+  scrollbar-color: #564A3C transparent;
+}

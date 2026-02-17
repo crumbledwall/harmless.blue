@@ -4,37 +4,52 @@ import Image from 'next/image'
 import { BLOG } from '@/blog.config'
 import { pageLink } from '@/lib/link'
 
-export default function Post() {
+interface Friend {
+  name: string
+  link: string
+  description: string
+  avatar: string
+}
+
+export default function Friends() {
   return (
-    <Layout pageInfo={{
-      pageName: 'Friends',
-      description: 'My Friends',
-      link: pageLink('friends', 'page'),
-      type: 'article',
-    }}>
-      <div className="flex flex-col items-start py-5 dark:text-light-700">
-        <div className="text-3xl md:text-4xl font-bold mt-5 font-serif"></div>
-        <article className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2">
-            {BLOG.friends.map((friend) => {
+    <Layout
+      pageInfo={{
+        pageName: 'Friends',
+        description: 'My Friends',
+        link: pageLink('friends', 'page'),
+        type: 'article',
+      }}
+    >
+      <div className="flex flex-col items-start py-6 text-dark-900 dark:text-dark-100">
+        <h2 className="text-2xl md:text-3xl font-bold font-serif">Friends</h2>
+        <article className="w-full mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {BLOG.friends.map((friend: Friend) => {
               return (
-                <Link href={friend.link} key={friend.name} className="no-underline text-dark-100 dark:text-light-700">
-                  <div className="flex gap-8 cursor-pointer">
-                    <div className="w-12 h-12 sm:(w-20 h-20) md:(w-24 h-24) relative rounded-xl overflow-hidden">
+                <Link
+                  href={friend.link}
+                  key={friend.name}
+                  className="no-underline text-dark-900 dark:text-dark-100 group"
+                >
+                  <div className="flex items-center gap-4 p-3.5 rounded-lg border border-transparent hover:border-light-300 dark:hover:border-dark-600 transition-all">
+                    <div className="w-11 h-11 md:w-14 md:h-14 relative rounded-full overflow-hidden ring-1 ring-light-300/80 dark:ring-dark-600/80 flex-shrink-0">
                       <Image
                         loader={({ src }) => src}
                         src={friend.avatar}
                         alt={friend.name}
-                        placeholder={'blur'}
+                        placeholder="blur"
                         blurDataURL="/placeholder.svg"
-                        unoptimized={true}
-                        layout="fill"
-                        priority={true}
-                      ></Image>
+                        unoptimized
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <div className="flex flex-col justify-center">
-                      <div className="text-lg sm:text-2xl font-bold">{friend.name}</div>
-                      <div className="text-sm sm:text-lg font-monospace overflow-ellipsis">
+                    <div className="flex flex-col min-w-0">
+                      <div className="text-sm md:text-base font-bold group-hover:text-dark-600 dark:group-hover:text-dark-50 transition-colors truncate">
+                        {friend.name}
+                      </div>
+                      <div className="text-xs md:text-sm text-dark-400 dark:text-dark-400 truncate">
                         {friend.description}
                       </div>
                     </div>

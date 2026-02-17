@@ -1,12 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
-
-module.exports = {
-  webpack(config) {
-    config.plugins.push(new WindiCSSWebpackPlugin())
-    return config
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ['thirdqq.qlogo.cn', 'www.notion.so']
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'thirdqq.qlogo.cn',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.notion.so',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.amazonaws.com',
+      },
+    ],
+  },
 }
+
+module.exports = nextConfig
