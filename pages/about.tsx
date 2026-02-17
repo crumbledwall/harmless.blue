@@ -40,7 +40,7 @@ export const getStaticProps = async () => {
       props: {
         postData,
       },
-      revalidate: 60,
+      revalidate: 3600,
     }
   } catch (error) {
     console.error('Error fetching about page:', error)
@@ -48,7 +48,7 @@ export const getStaticProps = async () => {
       props: {
         postData: { title: 'About', content: '' },
       },
-      revalidate: 60,
+      revalidate: 3600,
     }
   }
 }

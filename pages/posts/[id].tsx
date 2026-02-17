@@ -79,7 +79,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       props: {
         postData: postData || null,
       },
-      revalidate: 60,
+      revalidate: 3600,
     }
   } catch (error) {
     console.error(`Error fetching post ${params.id}:`, error)
@@ -87,7 +87,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       props: {
         postData: null,
       },
-      revalidate: 60,
+      revalidate: 3600,
     }
   }
 }
