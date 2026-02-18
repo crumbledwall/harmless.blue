@@ -102,10 +102,18 @@ const getContents = async (pageId: string): Promise<PostContent> => {
   }
 }
 
-const queryDatabase = async (dbId: string) => {
+const queryDatabase = async (dbId: string, pageSize = 10, startCursor?: string) => {
   try {
     const res = await notion.databases.query({
       database_id: dbId,
+      page_size: pageSize,
+      start_cursor: startCursor,
+      filter: {
+        property: 'Draft',
+        select: {
+          does_not_equal: 'True',
+        },
+      },
       sorts: [
         {
           property: 'Date',
@@ -114,27 +122,44 @@ const queryDatabase = async (dbId: string) => {
       ],
     })
 
-    return res.results
+    return {
+      results: res.results,
+      nextCursor: res.next_cursor,
+      hasMore: res.has_more,
+    }
   } catch (error) {
     console.error(`Error querying database ${dbId}:`, error)
     throw error
   }
 }
 
-export const getList = async () => {
+interface PaginationResult {
+  items: Array<{
+    id: string
+    title: string | null
+    description: string | null
+    date: string | null
+    tags: string[]
+  }>
+  nextCursor: string | null
+  hasMore: boolean
+}
+
+export const getList = async (pageCursor?: string, pageSize = 10): Promise<PaginationResult> => {
   if (!blogDatabase) {
     console.error('BLOG_DATABASE is not configured')
-    return []
+    return { items: [], nextCursor: null, hasMore: false }
   }
 
   try {
-    const res = (await queryDatabase(blogDatabase)) as unknown as NotionDatabaseItem[]
+    const { results, nextCursor, hasMore } = await queryDatabase(blogDatabase, pageSize, pageCursor)
+    const res = results as unknown as NotionDatabaseItem[]
+
     const result: Array<{
       id: string
       title: string | null
       description: string | null
       date: string | null
-      draft: boolean
       tags: string[]
     }> = []
 
@@ -154,11 +179,6 @@ export const getList = async () => {
         ? dateProp.date.start
         : null
 
-      const draftProp = item.properties.Draft
-      const draft = draftProp && 'select' in draftProp && draftProp.select
-        ? draftProp.select.name === 'True'
-        : false
-
       const tagsProp = item.properties.Tags
       const tags: string[] = []
       if (tagsProp && 'multi_select' in tagsProp && tagsProp.multi_select) {
@@ -172,14 +192,51 @@ export const getList = async () => {
         title,
         description,
         date,
-        draft,
         tags,
       })
     })
 
-    return result
+    return {
+      items: result,
+      nextCursor,
+      hasMore,
+    }
   } catch (error) {
     console.error('Error fetching post list:', error)
+    return { items: [], nextCursor: null, hasMore: false }
+  }
+}
+
+/**
+ * 获取所有文章（不分页），用于 sitemap 等场景
+ */
+export const getAllPosts = async (): Promise<Array<{ id: string }>> => {
+  if (!blogDatabase) {
+    console.error('BLOG_DATABASE is not configured')
+    return []
+  }
+
+  const allItems: Array<{ id: string }> = []
+  let cursor: string | undefined = undefined
+
+  try {
+    while (true) {
+      const { results, nextCursor, hasMore } = await queryDatabase(blogDatabase, 100, cursor)
+      const res = results as unknown as NotionDatabaseItem[]
+
+      res.forEach((item) => {
+        allItems.push({ id: item.id })
+      })
+
+      if (!hasMore || !nextCursor) {
+        break
+      }
+      cursor = nextCursor
+    }
+
+    return allItems
+  } catch (error) {
+    console.error('Error fetching all posts:', error)
     return []
   }
 }

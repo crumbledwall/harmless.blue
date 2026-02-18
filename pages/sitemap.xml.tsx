@@ -1,10 +1,9 @@
 import { GetServerSideProps } from 'next'
-import { getList } from '@/lib/notion'
+import { getAllPosts } from '@/lib/notion'
 import { BLOG } from '@/blog.config'
 
 interface PostItem {
   id: string
-  draft: boolean
 }
 
 function generateSiteMap(posts: PostItem[]) {
@@ -20,7 +19,6 @@ function generateSiteMap(posts: PostItem[]) {
         <loc>${BLOG.link}friends</loc>
       </url>
       ${posts
-        .filter(({ draft }) => !draft)
         .map(({ id }) => {
           return `
             <url>
@@ -38,7 +36,7 @@ function SiteMap() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const posts = await getList()
+  const posts = await getAllPosts()
   const sitemap = generateSiteMap(posts)
 
   res.setHeader('Content-Type', 'text/xml')

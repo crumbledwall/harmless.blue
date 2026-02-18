@@ -52,13 +52,15 @@ const ImageWrapper: React.FC<ImageWrapperProps> = (props) => {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            className="max-h-[90vh] max-w-[90vw] object-contain cursor-pointer rounded-lg"
-            onClick={close}
-          />
+          <div className="relative max-h-[90vh] max-w-[90vw]">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-contain cursor-pointer rounded-lg"
+              onClick={close}
+            />
+          </div>
         </div>
       )}
     </>
