@@ -11,7 +11,7 @@ export const parseMarkdown = (markdownBody: string): React.ReactNode => {
   const file = (unified() as any)
     .use(parser)
     .use(mdast2hast)
-    .use(rehypeHighlight)
+    .use(rehypeHighlight, { ignoreMissing: true })
     .use(rehypeReact, {
       createElement: React.createElement,
       components: {
