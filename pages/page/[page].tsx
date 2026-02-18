@@ -4,29 +4,49 @@ import type { PostListItem } from '@/lib/notion'
 import { timeFormat } from '@/lib/time'
 import Link from 'next/link'
 import { BLOG } from '@/blog.config'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 
-interface HomeProps {
+interface PageProps {
   list: PostListItem[]
   currentPage: number
   totalPages: number
 }
 
-export async function getStaticProps() {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
+}
+
+export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
+  const page = Number(params?.page)
+
+  if (!page || page < 2 || !Number.isInteger(page)) {
+    return { notFound: true }
+  }
+
   const allPosts = await getAllPostsList()
   const totalPages = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE))
-  const list = allPosts.slice(0, PAGE_SIZE)
+
+  if (page > totalPages) {
+    return { notFound: true }
+  }
+
+  const start = (page - 1) * PAGE_SIZE
+  const list = allPosts.slice(start, start + PAGE_SIZE)
 
   return {
     props: {
       list,
-      currentPage: 1,
+      currentPage: page,
       totalPages,
     },
     revalidate: 3600,
   }
 }
 
-export default function Home({ list, currentPage, totalPages }: HomeProps) {
+export default function Page({ list, currentPage, totalPages }: PageProps) {
   const hasPrev = currentPage > 1
   const hasNext = currentPage < totalPages
 

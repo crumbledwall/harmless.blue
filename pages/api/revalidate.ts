@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getAllPostsList, PAGE_SIZE } from '@/lib/notion'
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,6 +27,13 @@ export default async function handler(
     await res.revalidate('/')
     await res.revalidate('/about')
     await res.revalidate('/friends')
+
+    // Revalidate paginated pages
+    const allPosts = await getAllPostsList()
+    const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+    for (let i = 2; i <= totalPages; i++) {
+      await res.revalidate(`/page/${i}`)
+    }
 
     return res.json({ revalidated: true, all: true })
   } catch (err) {

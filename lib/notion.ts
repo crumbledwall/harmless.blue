@@ -133,16 +133,47 @@ const queryDatabase = async (dbId: string, pageSize = 10, startCursor?: string) 
   }
 }
 
+export const PAGE_SIZE = 10
+
+export type PostListItem = {
+  id: string
+  title: string | null
+  description: string | null
+  date: string | null
+  tags: string[]
+}
+
 interface PaginationResult {
-  items: Array<{
-    id: string
-    title: string | null
-    description: string | null
-    date: string | null
-    tags: string[]
-  }>
+  items: PostListItem[]
   nextCursor: string | null
   hasMore: boolean
+}
+
+const parseNotionItem = (item: NotionDatabaseItem): PostListItem => {
+  const nameProp = item.properties.Name
+  const title = nameProp && 'title' in nameProp && nameProp.title && nameProp.title.length > 0
+    ? nameProp.title[0].plain_text
+    : null
+
+  const descProp = item.properties.Description
+  const description = descProp && 'rich_text' in descProp && descProp.rich_text && descProp.rich_text.length > 0
+    ? descProp.rich_text[0].plain_text
+    : null
+
+  const dateProp = item.properties.Date
+  const date = dateProp && 'date' in dateProp && dateProp.date
+    ? dateProp.date.start
+    : null
+
+  const tagsProp = item.properties.Tags
+  const tags: string[] = []
+  if (tagsProp && 'multi_select' in tagsProp && tagsProp.multi_select) {
+    tagsProp.multi_select.forEach((tag) => {
+      tags.push(tag.name)
+    })
+  }
+
+  return { id: item.id, title, description, date, tags }
 }
 
 export const getList = async (pageCursor?: string, pageSize = 10): Promise<PaginationResult> => {
@@ -153,54 +184,9 @@ export const getList = async (pageCursor?: string, pageSize = 10): Promise<Pagin
 
   try {
     const { results, nextCursor, hasMore } = await queryDatabase(blogDatabase, pageSize, pageCursor)
-    const res = results as unknown as NotionDatabaseItem[]
+    const items = (results as unknown as NotionDatabaseItem[]).map(parseNotionItem)
 
-    const result: Array<{
-      id: string
-      title: string | null
-      description: string | null
-      date: string | null
-      tags: string[]
-    }> = []
-
-    res.forEach((item) => {
-      const nameProp = item.properties.Name
-      const title = nameProp && 'title' in nameProp && nameProp.title && nameProp.title.length > 0
-        ? nameProp.title[0].plain_text
-        : null
-
-      const descProp = item.properties.Description
-      const description = descProp && 'rich_text' in descProp && descProp.rich_text && descProp.rich_text.length > 0
-        ? descProp.rich_text[0].plain_text
-        : null
-
-      const dateProp = item.properties.Date
-      const date = dateProp && 'date' in dateProp && dateProp.date
-        ? dateProp.date.start
-        : null
-
-      const tagsProp = item.properties.Tags
-      const tags: string[] = []
-      if (tagsProp && 'multi_select' in tagsProp && tagsProp.multi_select) {
-        tagsProp.multi_select.forEach((tag) => {
-          tags.push(tag.name)
-        })
-      }
-
-      result.push({
-        id: item.id,
-        title,
-        description,
-        date,
-        tags,
-      })
-    })
-
-    return {
-      items: result,
-      nextCursor,
-      hasMore,
-    }
+    return { items, nextCursor, hasMore }
   } catch (error) {
     console.error('Error fetching post list:', error)
     return { items: [], nextCursor: null, hasMore: false }
@@ -237,6 +223,37 @@ export const getAllPosts = async (): Promise<Array<{ id: string }>> => {
     return allItems
   } catch (error) {
     console.error('Error fetching all posts:', error)
+    return []
+  }
+}
+
+/**
+ * 获取所有文章（含元数据，不分页），用于首页 ISR 分页
+ */
+export const getAllPostsList = async (): Promise<PostListItem[]> => {
+  if (!blogDatabase) {
+    console.error('BLOG_DATABASE is not configured')
+    return []
+  }
+
+  const allItems: PostListItem[] = []
+  let cursor: string | undefined = undefined
+
+  try {
+    while (true) {
+      const { results, nextCursor, hasMore }: { results: unknown[]; nextCursor: string | null; hasMore: boolean } = await queryDatabase(blogDatabase, 100, cursor)
+      const items = (results as unknown as NotionDatabaseItem[]).map(parseNotionItem)
+      allItems.push(...items)
+
+      if (!hasMore || !nextCursor) {
+        break
+      }
+      cursor = nextCursor
+    }
+
+    return allItems
+  } catch (error) {
+    console.error('Error fetching all posts list:', error)
     return []
   }
 }
