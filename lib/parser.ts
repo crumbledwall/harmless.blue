@@ -5,13 +5,15 @@ import mdast2hast from 'remark-rehype'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeReact from 'rehype-react'
 import ImageWrapper from '@/components/image'
+// Register all common languages for highlight.js
+import 'highlight.js/lib/common'
 
 export const parseMarkdown = (markdownBody: string): React.ReactNode => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const file = (unified() as any)
     .use(parser)
     .use(mdast2hast)
-    .use(rehypeHighlight, { ignoreMissing: true })
+    .use(rehypeHighlight)
     .use(rehypeReact, {
       createElement: React.createElement,
       components: {
