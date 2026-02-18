@@ -12,13 +12,13 @@ body {
 
 /* Selection color */
 ::selection {
-  background-color: #E8DAC5;
-  color: #261F19;
+  background-color: #d1dad7;
+  color: #222222;
 }
 
 .dark ::selection {
-  background-color: #3A3128;
-  color: #EDE4D8;
+  background-color: #323b39;
+  color: #d8dddb;
 }
 
 /* Custom scrollbar styles */
@@ -27,18 +27,18 @@ pre code::-webkit-scrollbar {
 }
 
 pre code::-webkit-scrollbar-thumb {
-  background-color: #C4B49C;
+  background-color: #9ca8a3;
   border-radius: 0.25rem;
 }
 
 .dark pre code::-webkit-scrollbar-thumb {
-  background-color: #564A3C;
+  background-color: #3e4846;
 }
 
 pre code {
-  scrollbar-color: #C4B49C transparent;
+  scrollbar-color: #9ca8a3 transparent;
 }
 
 .dark pre code {
-  scrollbar-color: #564A3C transparent;
+  scrollbar-color: #3e4846 transparent;
 }
