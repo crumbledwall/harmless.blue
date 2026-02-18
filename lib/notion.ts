@@ -221,7 +221,7 @@ export const getAllPosts = async (): Promise<Array<{ id: string }>> => {
 
   try {
     while (true) {
-      const { results, nextCursor, hasMore } = await queryDatabase(blogDatabase, 100, cursor)
+      const { results, nextCursor, hasMore }: { results: unknown[]; nextCursor: string | null; hasMore: boolean } = await queryDatabase(blogDatabase, 100, cursor)
       const res = results as unknown as NotionDatabaseItem[]
 
       res.forEach((item) => {
