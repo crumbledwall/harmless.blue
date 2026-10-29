@@ -6,21 +6,19 @@ import type { PageInfo } from '@/types/page'
 interface LayoutProps {
   children: React.ReactNode
   pageInfo: PageInfo
-  /** Total number of posts, shown next to "Writing" in the nav when known. */
-  postCount?: number
 }
 
-export default function Layout({ children, pageInfo, postCount }: LayoutProps) {
+// The paper sheet spans the full viewport height, so there is no card edge that scrolls
+// away and the sticky rail sits at top: 0 from the first frame.
+export default function Layout({ children, pageInfo }: LayoutProps) {
   return (
     <>
       <Head pageInfo={pageInfo} />
-      <div className="md:px-4 md:py-10">
-        <div className="mx-auto flex min-h-screen max-w-[920px] flex-col bg-paper md:grid md:min-h-[calc(100vh-5rem)] md:grid-cols-[240px_minmax(0,1fr)] md:rounded md:border md:border-hair md:shadow-[0_30px_60px_-30px_rgba(40,33,22,0.35)]">
-          <Header postCount={postCount} />
-          <div className="flex min-w-0 flex-1 flex-col px-5 py-8 md:px-10 md:py-[42px]">
-            <main className="w-full max-w-[640px] flex-1">{children}</main>
-            <Footer />
-          </div>
+      <div className="mx-auto flex min-h-screen max-w-[1040px] flex-col bg-paper md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[256px_minmax(0,1fr)] min-[1080px]:border-x min-[1080px]:border-hair min-[1080px]:shadow-[0_0_80px_-28px_rgba(40,33,22,0.28)] dark:shadow-none">
+        <Header />
+        <div className="flex min-w-0 flex-1 flex-col px-5 pb-8 pt-8 md:px-10 md:pb-10 md:pt-14 lg:px-12">
+          <main className="w-full flex-1">{children}</main>
+          <Footer />
         </div>
       </div>
     </>

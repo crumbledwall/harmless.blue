@@ -8,7 +8,6 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 interface PageProps {
   list: PostListItem[]
   offset: number
-  total: number
   currentPage: number
   totalPages: number
 }
@@ -41,7 +40,6 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
     props: {
       list,
       offset: start,
-      total: allPosts.length,
       currentPage: page,
       totalPages,
     },
@@ -49,7 +47,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
   }
 }
 
-export default function Page({ list, offset, total, currentPage, totalPages }: PageProps) {
+export default function Page({ list, offset, currentPage, totalPages }: PageProps) {
   return (
     <Layout
       pageInfo={{
@@ -58,15 +56,8 @@ export default function Page({ list, offset, total, currentPage, totalPages }: P
         link: BLOG.link,
         type: 'website',
       }}
-      postCount={total}
     >
-      <PostList
-        list={list}
-        offset={offset}
-        total={total}
-        currentPage={currentPage}
-        totalPages={totalPages}
-      />
+      <PostList list={list} offset={offset} currentPage={currentPage} totalPages={totalPages} />
     </Layout>
   )
 }

@@ -12,6 +12,10 @@ const headingBar = {
 }
 
 module.exports = {
+  // hover: variants only apply on devices with a real pointer, so taps don't leave rows "stuck" hovered.
+  future: {
+    hoverOnlyWhenSupported: true
+  },
   darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -20,6 +24,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Fast start, long soft landing. Used for every hover movement so they feel like one system.
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)'
+      },
       // Colors are CSS variables (see styles/globals.css), so `/opacity` modifiers do not work.
       colors: {
         mat: 'var(--mat)',
@@ -71,10 +79,15 @@ module.exports = {
             a: {
               fontWeight: 'inherit',
               textDecorationThickness: '1px',
-              textUnderlineOffset: '0.2em',
+              textUnderlineOffset: '0.28em',
+              textDecorationColor: 'color-mix(in srgb, var(--clay) 35%, transparent)',
               overflowWrap: 'anywhere',
+              transitionProperty: 'text-decoration-color, text-underline-offset',
+              transitionDuration: '400ms',
+              transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
               '&:hover': {
-                textDecorationThickness: '2px'
+                textDecorationColor: 'var(--clay)',
+                textUnderlineOffset: '0.16em'
               }
             },
             h1: {

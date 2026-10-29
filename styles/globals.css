@@ -39,11 +39,55 @@
   --code-inline-fg: #cf6f55;
 }
 
+html {
+  /* Keeps the centered sheet from shifting sideways between short and long pages. */
+  scrollbar-gutter: stable;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /*
+   * Underline that draws in from the left on hover and leaves to the right.
+   * Put it on an inline element inside a `.group` link (or on the link itself).
+   */
+  .sweep {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: 0% 1px;
+    transition: background-size 650ms theme('transitionTimingFunction.out-expo'),
+      color 300ms ease;
+  }
+
+  .group:focus-visible .sweep {
+    background-position: 0% 100%;
+    background-size: 100% 1px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover .sweep,
+    a.sweep:hover {
+      background-position: 0% 100%;
+      background-size: 100% 1px;
+    }
+  }
+}
+
+/*
+ * No blanket prefers-reduced-motion override: Windows reports "reduce" whenever system
+ * animation effects are off, and the site's only motion is small, pointer-triggered hover
+ * feedback (a few px, under 0.7s). There is no scroll-linked, looping or auto-playing motion.
+ */
 
 /* Selection color */
 ::selection {

@@ -6,7 +6,6 @@ import { BLOG } from '@/blog.config'
 
 interface HomeProps {
   list: PostListItem[]
-  total: number
   currentPage: number
   totalPages: number
 }
@@ -19,7 +18,6 @@ export async function getStaticProps() {
   return {
     props: {
       list,
-      total: allPosts.length,
       currentPage: 1,
       totalPages,
     },
@@ -27,7 +25,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ list, total, currentPage, totalPages }: HomeProps) {
+export default function Home({ list, currentPage, totalPages }: HomeProps) {
   return (
     <Layout
       pageInfo={{
@@ -36,15 +34,8 @@ export default function Home({ list, total, currentPage, totalPages }: HomeProps
         link: BLOG.link,
         type: 'website',
       }}
-      postCount={total}
     >
-      <PostList
-        list={list}
-        offset={0}
-        total={total}
-        currentPage={currentPage}
-        totalPages={totalPages}
-      />
+      <PostList list={list} offset={0} currentPage={currentPage} totalPages={totalPages} />
     </Layout>
   )
 }
