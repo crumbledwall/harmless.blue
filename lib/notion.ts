@@ -54,6 +54,13 @@ n2m.setCustomTransformer('image', async (block) => {
   return `![${caption}](${filterUrl(url, image.id as string)})`
 })
 
+// notion-to-md v3 emits `$$…$$` for block equations, which needs a math renderer this site does
+// not ship. Keep showing the LaTeX source in a code block, as before the upgrade.
+n2m.setCustomTransformer('equation', async (block) => {
+  const expression = (block as { equation?: { expression?: string } }).equation?.expression
+  return expression ? `\`\`\`latex\n${expression}\n\`\`\`` : ''
+})
+
 interface PostContent {
   id: string
   title: string
@@ -94,7 +101,8 @@ const getContents = async (pageId: string): Promise<PostContent> => {
       description,
       date,
       tags,
-      content: n2m.toMarkdownString(blocks),
+      // notion-to-md v3 returns one string per page; `parent` is the page itself.
+      content: n2m.toMarkdownString(blocks).parent ?? '',
     }
   } catch (error) {
     console.error(`Error fetching content for page ${pageId}:`, error)
@@ -102,10 +110,34 @@ const getContents = async (pageId: string): Promise<PostContent> => {
   }
 }
 
+// Since Notion API 2025-09-03 (SDK v5), rows are queried from a database's data source, not the
+// database. BLOG_DATABASE stays a database ID; its data source ID is looked up once per server
+// instance. The blog database has a single data source, so the first one is used.
+let blogDataSourceId: Promise<string> | undefined
+
+const getDataSourceId = (databaseId: string): Promise<string> => {
+  if (!blogDataSourceId) {
+    blogDataSourceId = notion.databases
+      .retrieve({ database_id: databaseId })
+      .then((database) => {
+        const dataSource = 'data_sources' in database ? database.data_sources[0] : undefined
+        if (!dataSource) {
+          throw new Error(`Database ${databaseId} has no data source this integration can read`)
+        }
+        return dataSource.id
+      })
+      .catch((error: unknown) => {
+        blogDataSourceId = undefined // look it up again on the next request
+        throw error
+      })
+  }
+  return blogDataSourceId
+}
+
 const queryDatabase = async (dbId: string, pageSize = 10, startCursor?: string) => {
   try {
-    const res = await notion.databases.query({
-      database_id: dbId,
+    const res = await notion.dataSources.query({
+      data_source_id: await getDataSourceId(dbId),
       page_size: pageSize,
       start_cursor: startCursor,
       filter: {
@@ -123,7 +155,8 @@ const queryDatabase = async (dbId: string, pageSize = 10, startCursor?: string) 
     })
 
     return {
-      results: res.results,
+      // A data source query can also return nested data sources (wiki databases); posts are pages.
+      results: res.results.filter((result) => result.object === 'page'),
       nextCursor: res.next_cursor,
       hasMore: res.has_more,
     }

@@ -12,8 +12,9 @@ export async function markdownToHast(markdown: string): Promise<Root> {
   const processor = unified()
     .use(remarkParse)
     .use(remarkRehype)
-    // Unknown fence languages render as plain code instead of failing the whole page.
-    .use(rehypeHighlight, { ignoreMissing: true })
+    // Unknown fence languages render as plain code (rehype-highlight 7 only records a warning).
+    // `detect` keeps the v5 behavior of auto-detecting code blocks that have no language.
+    .use(rehypeHighlight, { detect: true })
 
   const hast = await processor.run(processor.parse(markdown))
 

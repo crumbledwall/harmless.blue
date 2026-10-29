@@ -39,7 +39,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = (props) => {
       />
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(20,16,9,0.86)] backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(20,16,9,0.86)] backdrop-blur-xs"
           onClick={close}
         >
           <button

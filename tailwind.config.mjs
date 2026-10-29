@@ -1,4 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+// Tailwind v4 takes the design tokens from styles/globals.css (@theme). This file only holds the
+// typography plugin's `prose` customization, which the plugin still reads from a JS theme.
+// It is loaded by the `@config` line in styles/globals.css.
+import typography from '@tailwindcss/typography'
 
 // Short clay bar in front of article h2/h3.
 const headingBar = {
@@ -11,45 +14,10 @@ const headingBar = {
   backgroundColor: 'var(--clay)'
 }
 
-module.exports = {
-  // hover: variants only apply on devices with a real pointer, so taps don't leave rows "stuck" hovered.
-  future: {
-    hoverOnlyWhenSupported: true
-  },
-  darkMode: 'class',
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}'
-  ],
+/** @type {import('tailwindcss').Config} */
+const config = {
   theme: {
     extend: {
-      // Fast start, long soft landing. Used for every hover movement so they feel like one system.
-      transitionTimingFunction: {
-        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)'
-      },
-      // Colors are CSS variables (see styles/globals.css), so `/opacity` modifiers do not work.
-      colors: {
-        mat: 'var(--mat)',
-        paper: 'var(--paper)',
-        ink: 'var(--ink)',
-        muted: 'var(--muted)',
-        faint: 'var(--faint)',
-        hair: 'var(--hair)',
-        clay: 'var(--clay)'
-      },
-      fontFamily: {
-        sans: ['Inter', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'system-ui', 'sans-serif'],
-        // CJK fonts before the generic family, so Chinese in code/meta uses the same system font as body text.
-        mono: [
-          'JetBrains Mono',
-          'Cascadia Code',
-          'Consolas',
-          'PingFang SC',
-          'Microsoft YaHei',
-          'monospace'
-        ]
-      },
       typography: {
         DEFAULT: {
           css: {
@@ -84,7 +52,7 @@ module.exports = {
               overflowWrap: 'anywhere',
               transitionProperty: 'text-decoration-color, text-underline-offset',
               transitionDuration: '400ms',
-              transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              transitionTimingFunction: 'var(--ease-out-expo)',
               '&:hover': {
                 textDecorationColor: 'var(--clay)',
                 textUnderlineOffset: '0.16em'
@@ -166,5 +134,7 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [typography]
 }
+
+export default config

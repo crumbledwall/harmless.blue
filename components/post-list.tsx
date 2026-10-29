@@ -45,7 +45,7 @@ export default function PostList({ list, offset, currentPage, totalPages }: Post
               </span>
             </span>
             <div className="min-w-0">
-              <h2 className="text-[17px] font-semibold leading-normal tracking-[-0.005em] md:text-lg">
+              <h2 className="text-[17px] font-semibold leading-normal tracking-[-0.005em] md:text-lg md:leading-7">
                 <span className="sweep group-hover:text-clay">{item.title}</span>
               </h2>
               {item.description && (

@@ -1,6 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+/* `prose` customization for the typography plugin (still a JS theme in Tailwind v4). */
+@config '../tailwind.config.mjs';
+
+/* Class-based dark mode: next-themes toggles `.dark` on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Color utilities (`text-ink`, `bg-paper`, `border-hair`…) read the variables below, so the
+ * `.dark` block switches every color at once. `inline` makes them reference the variables
+ * directly, which also lets `/opacity` modifiers work on them.
+ */
+@theme inline {
+  --color-mat: var(--mat);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-hair: var(--hair);
+  --color-clay: var(--clay);
+}
+
+@theme {
+  --font-sans: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  /* CJK fonts before the generic family, so Chinese in code/meta uses the same system font as body text. */
+  --font-mono:
+    'JetBrains Mono', 'Cascadia Code', Consolas, 'PingFang SC', 'Microsoft YaHei', monospace;
+  /* Fast start, long soft landing. Used for every hover movement so they feel like one system. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 /* Design tokens. Dark values are swapped in by next-themes' `.dark` class on <html>. */
 :root {
@@ -73,7 +100,8 @@ body {
     background-repeat: no-repeat;
     background-position: 100% 100%;
     background-size: 0% 1px;
-    transition: background-size 650ms theme('transitionTimingFunction.out-expo'),
+    transition:
+      background-size 650ms var(--ease-out-expo),
       color 300ms ease;
   }
 
@@ -82,7 +110,8 @@ body {
     background-size: 100% 1px;
   }
 
-  @media (hover: hover) and (pointer: fine) {
+  /* Same condition as Tailwind v4's `hover:` variant. */
+  @media (hover: hover) {
     .group:hover .sweep,
     a.sweep:hover {
       background-position: 0% 100%;

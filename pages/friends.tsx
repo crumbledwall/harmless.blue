@@ -32,7 +32,7 @@ export default function Friends() {
               key={friend.name}
               className="group flex items-center gap-4 border-b border-hair py-4"
             >
-              <div className="relative isolate h-11 w-11 flex-shrink-0 overflow-hidden rounded-full bg-hair ring-1 ring-hair md:h-14 md:w-14">
+              <div className="relative isolate h-11 w-11 shrink-0 overflow-hidden rounded-full bg-hair ring-1 ring-hair md:h-14 md:w-14">
                 <Image
                   loader={({ src }) => src}
                   src={friend.avatar}
