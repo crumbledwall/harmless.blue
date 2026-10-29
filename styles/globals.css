@@ -29,6 +29,16 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Hides an element's scrollbar but keeps it scrollable (wheel, touch, keyboard). */
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  /* Safari before 18.2 ignores scrollbar-width. */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Design tokens. Dark values are swapped in by next-themes' `.dark` class on <html>. */
 :root {
   --mat: #ece7dc;

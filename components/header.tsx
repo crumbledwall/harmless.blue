@@ -56,9 +56,10 @@ const PageHeader = () => {
     <aside className="border-b border-hair md:border-b-0 md:border-r">
       {/*
         Below md: a masthead (avatar, name, tagline, theme toggle) over a row of tabs that sits on
-        the bottom border; the active tab is underlined in clay. md+: rail pinned to the viewport.
+        the bottom border; the active tab is underlined in clay. md+: rail pinned to the viewport;
+        in very short windows it scrolls on its own, with the scrollbar hidden.
       */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 pt-6 md:sticky md:top-0 md:h-screen md:flex-col md:flex-nowrap md:items-stretch md:gap-0 md:overflow-y-auto md:px-8 md:pb-10 md:pt-14">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 pt-6 md:sticky md:top-0 md:h-screen md:flex-col md:flex-nowrap md:items-stretch md:gap-0 md:overflow-y-auto md:scrollbar-none md:px-8 md:pb-10 md:pt-14">
         <Link
           href="/"
           className="group/brand mr-auto flex items-center gap-3 md:mr-0 md:flex-col md:items-start md:gap-0"
