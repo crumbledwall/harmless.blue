@@ -1,49 +1,84 @@
 /*
  * highlight.js theme for both color schemes, replacing the runtime swap between
- * public/github.css and public/codepen-embed.css. Colors come from the code tokens
- * in globals.css, so `.dark` switches them without loading another stylesheet.
+ * public/github.css and public/codepen-embed.css. Every color is a CSS variable from
+ * globals.css, so `.dark` switches the whole palette without loading another stylesheet.
+ * Token classes are grouped by role; the class list is derived from what highlight.js
+ * actually emits for the languages used here (js, ts, py, go, rust, c, bash, php, json,
+ * yaml, xml, css, sql, diff, md, http). All roles meet WCAG AA against the code background.
  */
 .hljs {
   background: unset !important;
   color: var(--code-fg);
 }
 
+/* Muted: comments and brackets/operators sit behind the code. */
 .hljs-comment,
-.hljs-quote,
-.hljs-meta {
+.hljs-quote {
   color: var(--code-comment);
+  font-style: italic;
 }
 
+.hljs-punctuation,
+.hljs-operator,
+.hljs-meta,
+.hljs-tag {
+  color: var(--code-punct);
+}
+
+/* Keyword (clay, the site accent): control flow, element names, removed diff lines. */
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-doctag,
 .hljs-template-tag,
 .hljs-meta .hljs-keyword,
-.hljs-literal,
-.hljs-number,
+.hljs-variable.language_,
 .hljs-name,
-.hljs-section,
 .hljs-deletion {
   color: var(--code-keyword);
 }
 
+/* String (olive): strings, regex, added diff lines, inline markdown code. */
 .hljs-string,
 .hljs-regexp,
 .hljs-meta .hljs-string,
-.hljs-char.escape_,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-link,
-.hljs-addition {
+.hljs-addition,
+.hljs-code {
   color: var(--code-string);
 }
 
+/* Number / constant (amber): numerics, literals, escapes, symbols, list bullets. */
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-char.escape_,
+.hljs-variable.constant_ {
+  color: var(--code-number);
+}
+
+/* Function / key (blue): callables, object & data keys, variables, links, headings. */
 .hljs-title,
-.hljs-title.class_,
 .hljs-title.function_,
+.hljs-title.function_.invoke__,
+.hljs-function .hljs-title,
+.hljs-section,
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-selector-pseudo,
+.hljs-link {
+  color: var(--code-function);
+}
+
+/* Type / class (plum): type names, classes, built-ins. */
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
 .hljs-type,
 .hljs-built_in {
-  color: var(--ink);
+  color: var(--code-type);
 }
 
 .hljs-section,

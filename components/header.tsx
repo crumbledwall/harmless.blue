@@ -22,9 +22,6 @@ const sectionOf = (pathname: string): Section | null => {
   return null
 }
 
-const host = new URL(BLOG.link).host
-const hostDot = host.lastIndexOf('.')
-
 const ThemeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme()
 
@@ -123,9 +120,7 @@ const PageHeader = () => {
           <div className="hidden font-mono text-[11px] leading-[2] text-faint md:block">
             {BLOG.startYear}&ndash;{new Date().getFullYear()}
             <br />
-            {host.slice(0, hostDot)}
-            <span className="text-clay">.</span>
-            {host.slice(hostDot + 1)}
+            {BLOG.nickname}
           </div>
           <ThemeToggle />
         </div>

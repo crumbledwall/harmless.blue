@@ -14,9 +14,13 @@
 
   --code-bg: #f1ece0;
   --code-fg: #4a4336;
-  --code-comment: #9b9183;
+  --code-punct: #6b6052;
+  --code-comment: #72685c;
   --code-keyword: #a2402f;
-  --code-string: #5c6e43;
+  --code-string: #58683d;
+  --code-number: #855515;
+  --code-function: #3f6090;
+  --code-type: #7c4a72;
   --code-inline-bg: #efe9dc;
   --code-inline-fg: #7a4034;
 }
@@ -32,9 +36,13 @@
 
   --code-bg: #15120d;
   --code-fg: #cfd6c9;
-  --code-comment: #776d5f;
+  --code-punct: #9a9185;
+  --code-comment: #8a8174;
   --code-keyword: #cf6f55;
   --code-string: #9bab7d;
+  --code-number: #c89758;
+  --code-function: #86a6cb;
+  --code-type: #c194b6;
   --code-inline-bg: #241f18;
   --code-inline-fg: #cf6f55;
 }
