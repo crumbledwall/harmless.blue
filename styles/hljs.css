@@ -1,0 +1,56 @@
+/*
+ * highlight.js theme for both color schemes, replacing the runtime swap between
+ * public/github.css and public/codepen-embed.css. Colors come from the code tokens
+ * in globals.css, so `.dark` switches them without loading another stylesheet.
+ */
+.hljs {
+  background: unset !important;
+  color: var(--code-fg);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--code-comment);
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-template-tag,
+.hljs-meta .hljs-keyword,
+.hljs-literal,
+.hljs-number,
+.hljs-name,
+.hljs-section,
+.hljs-deletion {
+  color: var(--code-keyword);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-meta .hljs-string,
+.hljs-char.escape_,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-addition {
+  color: var(--code-string);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_,
+.hljs-type,
+.hljs-built_in {
+  color: var(--ink);
+}
+
+.hljs-section,
+.hljs-strong {
+  font-weight: 600;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}

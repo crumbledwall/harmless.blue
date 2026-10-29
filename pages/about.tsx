@@ -1,11 +1,14 @@
+import type { Root } from 'hast'
 import Layout from '@/components/layout'
+import Markdown from '@/components/markdown'
 import { getAbout } from '@/lib/notion'
-import { parseMarkdown } from '@/lib/parser'
+import { markdownToHast } from '@/lib/markdown'
 import { pageLink } from '@/lib/link'
 
 interface PostData {
   title: string
-  content: string
+  description: string
+  tree: Root
 }
 
 interface PostProps {
@@ -17,28 +20,32 @@ export default function About({ postData }: PostProps) {
     <Layout
       pageInfo={{
         pageName: 'About',
-        description: postData.content?.slice(0, 150) || 'About page',
+        description: postData.description || 'About page',
         link: pageLink('about', 'page'),
         type: 'article',
       }}
     >
-      <div className="flex flex-col items-start py-5 text-dark-900 dark:text-dark-100">
-        <div className="text-3xl md:text-4xl font-bold mt-5 font-serif">{postData.title}</div>
-        <article className="prose max-w-none w-full dark:prose-invert">
-          {parseMarkdown(postData.content)}
-        </article>
-      </div>
+      <h1 className="mb-[22px] text-2xl font-bold leading-[1.35] tracking-[-0.015em] md:text-[26px]">
+        {postData.title}
+      </h1>
+      <article className="prose w-full max-w-none">
+        <Markdown tree={postData.tree} />
+      </article>
     </Layout>
   )
 }
 
 export const getStaticProps = async () => {
   try {
-    const postData = await getAbout()
+    const about = await getAbout()
 
     return {
       props: {
-        postData,
+        postData: {
+          title: about.title,
+          description: about.content.slice(0, 150),
+          tree: await markdownToHast(about.content),
+        },
       },
       revalidate: 3600,
     }
@@ -46,7 +53,7 @@ export const getStaticProps = async () => {
     console.error('Error fetching about page:', error)
     return {
       props: {
-        postData: { title: 'About', content: '' },
+        postData: { title: 'About', description: '', tree: { type: 'root', children: [] } },
       },
       revalidate: 3600,
     }

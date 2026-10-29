@@ -11,6 +11,8 @@ interface Friend {
   avatar: string
 }
 
+const pad = (n: number) => String(n).padStart(2, '0')
+
 export default function Friends() {
   return (
     <Layout
@@ -21,44 +23,42 @@ export default function Friends() {
         type: 'article',
       }}
     >
-      <div className="flex flex-col items-start py-6 text-dark-900 dark:text-dark-100">
-        <h2 className="text-2xl md:text-3xl font-bold font-serif">Friends</h2>
-        <article className="w-full mt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {BLOG.friends.map((friend: Friend) => {
-              return (
-                <Link
-                  href={friend.link}
-                  key={friend.name}
-                  className="no-underline text-dark-900 dark:text-dark-100 group"
-                >
-                  <div className="flex items-center gap-4 p-3.5 rounded-lg border border-transparent hover:border-light-300 dark:hover:border-dark-600 transition-all">
-                    <div className="w-11 h-11 md:w-14 md:h-14 relative rounded-full overflow-hidden ring-1 ring-light-300/80 dark:ring-dark-600/80 flex-shrink-0">
-                      <Image
-                        loader={({ src }) => src}
-                        src={friend.avatar}
-                        alt={friend.name}
-                        placeholder="blur"
-                        blurDataURL="/placeholder.svg"
-                        unoptimized
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                      <div className="text-sm md:text-base font-bold group-hover:text-dark-600 dark:group-hover:text-dark-50 transition-colors truncate">
-                        {friend.name}
-                      </div>
-                      <div className="text-xs md:text-sm text-dark-400 dark:text-dark-400 truncate">
-                        {friend.description}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </article>
+      <div className="flex items-baseline justify-between border-b-2 border-ink pb-[22px]">
+        <h1 className="text-[13px] font-semibold uppercase tracking-[0.26em]">Friends</h1>
+        <span className="font-mono text-xs text-muted">Links / {pad(BLOG.friends.length)}</span>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-8">
+        {BLOG.friends.map((friend: Friend) => {
+          return (
+            <Link
+              href={friend.link}
+              key={friend.name}
+              className="group flex items-center gap-4 border-b border-hair py-4 transition-[padding] duration-[250ms] ease-out hover:pl-[9px] motion-reduce:transition-none"
+            >
+              <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-full ring-1 ring-hair md:h-14 md:w-14">
+                <Image
+                  loader={({ src }) => src}
+                  src={friend.avatar}
+                  alt={friend.name}
+                  placeholder="blur"
+                  blurDataURL="/placeholder.svg"
+                  unoptimized
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex min-w-0 flex-col">
+                <div className="truncate text-[15px] font-semibold transition-colors group-hover:text-clay">
+                  {friend.name}
+                </div>
+                <div className="mt-0.5 truncate font-mono text-[11px] text-faint">
+                  {friend.description}
+                </div>
+              </div>
+            </Link>
+          )
+        })}
       </div>
     </Layout>
   )

@@ -31,6 +31,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = (props) => {
         src={src}
         alt={alt}
         fill
+        sizes="(max-width: 768px) 100vw, 640px"
         className="cursor-pointer"
         priority={false}
         onClick={() => setOpen(true)}
@@ -38,13 +39,13 @@ const ImageWrapper: React.FC<ImageWrapperProps> = (props) => {
       />
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(20,16,9,0.86)] backdrop-blur-sm"
           onClick={close}
         >
           <button
             type="button"
             onClick={close}
-            className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center rounded-full bg-dark-800/60 text-dark-100 hover:bg-dark-700 transition-colors cursor-pointer border-none z-10"
+            className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center rounded-full bg-[rgba(248,245,239,0.12)] text-[#ece7dc] hover:bg-[rgba(248,245,239,0.22)] transition-colors cursor-pointer border-none z-10"
             aria-label="Close"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

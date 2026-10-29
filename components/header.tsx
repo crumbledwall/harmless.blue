@@ -1,91 +1,118 @@
-import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faLink,
-  faUserAstronaut,
-  faBarsStaggered,
-  faCircleHalfStroke
-} from '@fortawesome/free-solid-svg-icons'
 import { BLOG } from '@/blog.config'
 
-const PageHeader = () => {
+type Section = 'writing' | 'friends' | 'about'
+
+interface HeaderProps {
+  postCount?: number
+}
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+const sectionOf = (pathname: string): Section | null => {
+  if (pathname === '/friends') return 'friends'
+  if (pathname === '/about') return 'about'
+  if (pathname === '/' || pathname.startsWith('/page/') || pathname.startsWith('/posts/')) {
+    return 'writing'
+  }
+  return null
+}
+
+const host = new URL(BLOG.link).host
+const hostDot = host.lastIndexOf('.')
+
+const ThemeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme()
 
-  const changeTheme = () => {
-    if (resolvedTheme === 'light') {
-      return setTheme('dark')
-    }
-    return setTheme('light')
-  }
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className="-m-1 cursor-pointer border-none bg-transparent p-1 text-muted transition-colors hover:text-clay md:text-faint"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.75" />
+        <path d="M12 3.5a8.5 8.5 0 0 0 0 17z" fill="currentColor" />
+      </svg>
+    </button>
+  )
+}
+
+const PageHeader = ({ postCount }: HeaderProps) => {
+  const { pathname } = useRouter()
+  const active = sectionOf(pathname)
+
+  const nav: Array<{ key: Section; label: string; href: string; meta: string }> = [
+    {
+      key: 'writing',
+      label: 'Writing',
+      href: '/',
+      meta: postCount === undefined ? '→' : pad(postCount)
+    },
+    { key: 'friends', label: 'Friends', href: '/friends', meta: pad(BLOG.friends.length) },
+    { key: 'about', label: 'About', href: '/about', meta: '→' }
+  ]
 
   return (
-    <header className="w-full pt-10 pb-8 text-dark-900 dark:text-dark-100">
-      <div className="flex flex-col items-center gap-5">
-        <Link href="/">
-          <div className="relative h-20 w-20 md:h-24 md:w-24 rounded-full overflow-hidden ring-1 ring-light-300/80 dark:ring-dark-600/80 shadow-sm hover:shadow-md transition-shadow">
-            <Image
-              src="/avatar.png"
-              alt={`${BLOG.nickname}'s avatar`}
-              fill
-              placeholder="blur"
-              blurDataURL="/placeholder.svg"
-              className="cursor-pointer"
-              priority
-            />
-          </div>
-        </Link>
-        <div className="flex flex-col items-center gap-1.5">
-          <h1 className="text-lg md:text-xl font-bold font-serif tracking-wide">
+    <aside className="border-b border-hair md:border-b-0 md:border-r">
+      {/* Mobile: one top bar. Desktop: sticky left rail. */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4 md:sticky md:top-10 md:h-[calc(100vh-5rem)] md:flex-col md:flex-nowrap md:items-stretch md:gap-0 md:overflow-y-auto md:px-[30px] md:py-[42px]">
+        <div className="mr-auto md:mr-0">
+          <Link
+            href="/"
+            className="text-[15px] font-bold tracking-[-0.01em] transition-colors hover:text-clay"
+          >
             {BLOG.nickname}
-          </h1>
-          <p className="text-xs md:text-sm text-dark-400 dark:text-dark-300 tracking-widest">
+          </Link>
+          <p className="mt-[5px] hidden font-mono text-[11px] tracking-[0.02em] text-muted md:block">
             {BLOG.description}
           </p>
         </div>
-        <nav className="flex flex-row items-center gap-6 mt-1" aria-label="Main navigation">
-          <Link
-            href="/"
-            className="text-dark-500 dark:text-dark-300 hover:text-dark-900 dark:hover:text-dark-50 transition-colors relative group"
-            aria-label="Posts"
-          >
-            <FontAwesomeIcon icon={faBarsStaggered} className="text-sm" />
-            <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-dark-900 dark:bg-dark-100 group-hover:w-full transition-all duration-300" />
-          </Link>
-          <Link
-            href="/friends"
-            className="text-dark-500 dark:text-dark-300 hover:text-dark-900 dark:hover:text-dark-50 transition-colors relative group"
-            aria-label="Friends"
-          >
-            <FontAwesomeIcon icon={faLink} className="text-sm" />
-            <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-dark-900 dark:bg-dark-100 group-hover:w-full transition-all duration-300" />
-          </Link>
-          <Link
-            href="/about"
-            className="text-dark-500 dark:text-dark-300 hover:text-dark-900 dark:hover:text-dark-50 transition-colors relative group"
-            aria-label="About"
-          >
-            <FontAwesomeIcon icon={faUserAstronaut} className="text-sm" />
-            <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-dark-900 dark:bg-dark-100 group-hover:w-full transition-all duration-300" />
-          </Link>
-          <button
-            type="button"
-            onClick={changeTheme}
-            className="text-dark-500 dark:text-dark-300 hover:text-dark-900 dark:hover:text-dark-50 transition-colors relative group bg-transparent border-none cursor-pointer p-0"
-            aria-label="Toggle theme"
-          >
-            <FontAwesomeIcon icon={faCircleHalfStroke} className="text-sm" />
-            <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-dark-900 dark:bg-dark-100 group-hover:w-full transition-all duration-300" />
-          </button>
+
+        <nav
+          aria-label="Main navigation"
+          className="flex items-center gap-4 md:mt-[42px] md:flex-col md:items-stretch md:gap-0.5"
+        >
+          {nav.map((item) => {
+            const isActive = item.key === active
+            return (
+              <Link
+                key={item.key}
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                className={`text-[13px] transition-colors hover:text-clay md:flex md:items-center md:justify-between md:border-b md:border-hair md:py-2.5 md:text-sm ${
+                  isActive ? 'text-clay' : ''
+                }`}
+              >
+                {item.label}
+                <span
+                  className={`hidden font-mono text-[11px] md:inline ${
+                    isActive ? 'text-clay' : 'text-faint'
+                  }`}
+                >
+                  {item.meta}
+                </span>
+              </Link>
+            )
+          })}
         </nav>
+
+        <div className="flex items-end justify-between md:mt-auto md:pt-8">
+          <div className="hidden font-mono text-[11px] leading-[2] text-faint md:block">
+            EST. {BLOG.startYear}
+            <br />
+            {host.slice(0, hostDot)}
+            <span className="text-clay">.</span>
+            {host.slice(hostDot + 1)}
+          </div>
+          <ThemeToggle />
+        </div>
       </div>
-      <div className="mt-8 w-full flex items-center gap-4">
-        <div className="flex-1 h-px bg-light-300 dark:bg-dark-700" />
-        <div className="w-1 h-1 rounded-full bg-dark-400/50" />
-        <div className="flex-1 h-px bg-light-300 dark:bg-dark-700" />
-      </div>
-    </header>
+    </aside>
   )
 }
 

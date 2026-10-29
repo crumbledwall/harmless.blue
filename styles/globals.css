@@ -2,14 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth theme transition + font rendering */
+/* Design tokens. Dark values are swapped in by next-themes' `.dark` class on <html>. */
+:root {
+  --mat: #ece7dc;
+  --paper: #f8f5ef;
+  --ink: #211d18;
+  --muted: #6f6657;
+  --faint: #9b9183;
+  --hair: #e3dccd;
+  --clay: #a2402f;
 
-.hljs {
-  background: unset !important;
+  --code-bg: #f1ece0;
+  --code-fg: #4a4336;
+  --code-comment: #9b9183;
+  --code-keyword: #a2402f;
+  --code-string: #5c6e43;
+  --code-inline-bg: #efe9dc;
+  --code-inline-fg: #7a4034;
+}
+
+.dark {
+  --mat: #141009;
+  --paper: #1b1712;
+  --ink: #ece7dc;
+  --muted: #a79d8e;
+  --faint: #776d5f;
+  --hair: #2e2820;
+  --clay: #cf6f55;
+
+  --code-bg: #15120d;
+  --code-fg: #cfd6c9;
+  --code-comment: #776d5f;
+  --code-keyword: #cf6f55;
+  --code-string: #9bab7d;
+  --code-inline-bg: #241f18;
+  --code-inline-fg: #cf6f55;
 }
 
 body {
-  transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -17,33 +47,20 @@ body {
 
 /* Selection color */
 ::selection {
-  background-color: #d1dad7;
-  color: #222222;
+  background-color: var(--clay);
+  color: var(--paper);
 }
 
-.dark ::selection {
-  background-color: #323b39;
-  color: #d8dddb;
-}
-
-/* Custom scrollbar styles */
-pre code::-webkit-scrollbar {
+/* Code block scrollbars */
+pre::-webkit-scrollbar {
   height: 0.25rem;
 }
 
-pre code::-webkit-scrollbar-thumb {
-  background-color: #9ca8a3;
+pre::-webkit-scrollbar-thumb {
+  background-color: var(--faint);
   border-radius: 0.25rem;
 }
 
-.dark pre code::-webkit-scrollbar-thumb {
-  background-color: #3e4846;
-}
-
-pre code {
-  scrollbar-color: #9ca8a3 transparent;
-}
-
-.dark pre code {
-  scrollbar-color: #3e4846 transparent;
+pre {
+  scrollbar-color: var(--faint) transparent;
 }

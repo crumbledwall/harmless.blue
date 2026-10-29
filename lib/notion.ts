@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
 import { NotionToMarkdown } from 'notion-to-md'
-import type { NotionPage, NotionDatabaseItem } from '@/types/notion'
+import type { NotionPage } from '@/types/notion'
 
 // Environment variables with validation
 const blogDatabase = process.env.BLOG_DATABASE
@@ -143,13 +143,7 @@ export type PostListItem = {
   tags: string[]
 }
 
-interface PaginationResult {
-  items: PostListItem[]
-  nextCursor: string | null
-  hasMore: boolean
-}
-
-const parseNotionItem = (item: NotionDatabaseItem): PostListItem => {
+const parseNotionItem = (item: NotionPage): PostListItem => {
   const nameProp = item.properties.Name
   const title = nameProp && 'title' in nameProp && nameProp.title && nameProp.title.length > 0
     ? nameProp.title[0].plain_text
@@ -176,23 +170,6 @@ const parseNotionItem = (item: NotionDatabaseItem): PostListItem => {
   return { id: item.id, title, description, date, tags }
 }
 
-export const getList = async (pageCursor?: string, pageSize = 10): Promise<PaginationResult> => {
-  if (!blogDatabase) {
-    console.error('BLOG_DATABASE is not configured')
-    return { items: [], nextCursor: null, hasMore: false }
-  }
-
-  try {
-    const { results, nextCursor, hasMore } = await queryDatabase(blogDatabase, pageSize, pageCursor)
-    const items = (results as unknown as NotionDatabaseItem[]).map(parseNotionItem)
-
-    return { items, nextCursor, hasMore }
-  } catch (error) {
-    console.error('Error fetching post list:', error)
-    return { items: [], nextCursor: null, hasMore: false }
-  }
-}
-
 /**
  * 获取所有文章（不分页），用于 sitemap 等场景
  */
@@ -208,7 +185,7 @@ export const getAllPosts = async (): Promise<Array<{ id: string }>> => {
   try {
     while (true) {
       const { results, nextCursor, hasMore }: { results: unknown[]; nextCursor: string | null; hasMore: boolean } = await queryDatabase(blogDatabase, 100, cursor)
-      const res = results as unknown as NotionDatabaseItem[]
+      const res = results as unknown as NotionPage[]
 
       res.forEach((item) => {
         allItems.push({ id: item.id })
@@ -242,7 +219,7 @@ export const getAllPostsList = async (): Promise<PostListItem[]> => {
   try {
     while (true) {
       const { results, nextCursor, hasMore }: { results: unknown[]; nextCursor: string | null; hasMore: boolean } = await queryDatabase(blogDatabase, 100, cursor)
-      const items = (results as unknown as NotionDatabaseItem[]).map(parseNotionItem)
+      const items = (results as unknown as NotionPage[]).map(parseNotionItem)
       allItems.push(...items)
 
       if (!hasMore || !nextCursor) {
@@ -258,7 +235,7 @@ export const getAllPostsList = async (): Promise<PostListItem[]> => {
   }
 }
 
-export const getPost = async (pageId: string): Promise<{ id: string; title: string; content: string; date: string | null; description: string | null } | null> => {
+export const getPost = async (pageId: string): Promise<{ id: string; title: string; content: string; date: string | null; description: string | null; tags: string[] } | null> => {
   try {
     const res = await getContents(pageId)
 
@@ -268,6 +245,7 @@ export const getPost = async (pageId: string): Promise<{ id: string; title: stri
       content: res.content,
       date: res.date,
       description: res.description,
+      tags: res.tags,
     }
   } catch (error) {
     console.error(`Error fetching post ${pageId}:`, error)

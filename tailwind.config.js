@@ -1,206 +1,157 @@
 /** @type {import('tailwindcss').Config} */
 
-const serifStack =
-  "var(--font-serif), Georgia, 'Times New Roman', serif"
-const monoStack =
-  "var(--font-mono), 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, var(--font-sans), monospace"
+// Short clay bar in front of article h2/h3.
+const headingBar = {
+  content: '""',
+  display: 'inline-block',
+  width: '14px',
+  height: '2px',
+  marginRight: '10px',
+  verticalAlign: '0.3em',
+  backgroundColor: 'var(--clay)'
+}
 
 module.exports = {
   darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
     extend: {
-      transitionProperty: {
-        border: 'border',
-        decoration: 'text-decoration-color',
+      // Colors are CSS variables (see styles/globals.css), so `/opacity` modifiers do not work.
+      colors: {
+        mat: 'var(--mat)',
+        paper: 'var(--paper)',
+        ink: 'var(--ink)',
+        muted: 'var(--muted)',
+        faint: 'var(--faint)',
+        hair: 'var(--hair)',
+        clay: 'var(--clay)'
       },
       fontFamily: {
-        sans: [
-          'var(--font-sans)',
-          'PingFang SC',
-          'Hiragino Sans GB',
-          'Microsoft YaHei',
-          'sans-serif',
-        ],
-        serif: [
-          'var(--font-serif)',
-          'Georgia',
-          'Times New Roman',
-          'serif',
-        ],
-        monospace: [
-          'var(--font-mono)',
-          'Fira Code',
-          'Source Code Pro',
-          'Menlo',
-          'Monaco',
+        sans: ['Inter', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+        // CJK fonts before the generic family, so Chinese in code/meta uses the same system font as body text.
+        mono: [
+          'JetBrains Mono',
+          'Cascadia Code',
           'Consolas',
-          'var(--font-sans)',
-          'monospace',
-        ],
+          'PingFang SC',
+          'Microsoft YaHei',
+          'monospace'
+        ]
       },
-      colors: {
-        dark: {
-          50:  '#edf0ef',
-          100: '#d8dddb',
-          200: '#b8c0bd',
-          300: '#929c98',
-          400: '#6e7a76',
-          500: '#535e5a',
-          600: '#3e4846',
-          700: '#323b39',
-          800: '#272e2d',
-          900: '#222222',
-        },
-        light: {
-          50:  '#f9fbfa',
-          100: '#f4f7f6',
-          200: '#e5ebe9',
-          300: '#d1dad7',
-          400: '#9ca8a3',
-          500: '#6d7a75',
-          600: '#505c58',
-          700: '#3a4542',
-          800: '#2a302e',
-          900: '#1a201e',
-        },
-      },
-      typography: (theme) => ({
+      typography: {
         DEFAULT: {
           css: {
-            color: '#222222',
-            lineHeight: '1.8',
+            '--tw-prose-body': 'var(--ink)',
+            '--tw-prose-headings': 'var(--ink)',
+            '--tw-prose-lead': 'var(--muted)',
+            '--tw-prose-links': 'var(--clay)',
+            '--tw-prose-bold': 'var(--ink)',
+            '--tw-prose-counters': 'var(--faint)',
+            '--tw-prose-bullets': 'var(--faint)',
+            '--tw-prose-hr': 'var(--hair)',
+            '--tw-prose-quotes': 'var(--muted)',
+            '--tw-prose-quote-borders': 'var(--clay)',
+            '--tw-prose-captions': 'var(--faint)',
+            '--tw-prose-kbd': 'var(--ink)',
+            '--tw-prose-code': 'var(--code-inline-fg)',
+            '--tw-prose-pre-code': 'var(--code-fg)',
+            '--tw-prose-pre-bg': 'var(--code-bg)',
+            '--tw-prose-th-borders': 'var(--hair)',
+            '--tw-prose-td-borders': 'var(--hair)',
+            fontSize: '0.96875rem',
+            lineHeight: '1.95',
+            p: {
+              marginTop: '0.85em',
+              marginBottom: '0.85em'
+            },
+            a: {
+              fontWeight: 'inherit',
+              textDecorationThickness: '1px',
+              textUnderlineOffset: '0.2em',
+              overflowWrap: 'anywhere',
+              '&:hover': {
+                textDecorationThickness: '2px'
+              }
+            },
+            h1: {
+              fontSize: '1.5em',
+              fontWeight: '700',
+              letterSpacing: '-0.015em',
+              lineHeight: '1.35',
+              marginTop: '2em',
+              marginBottom: '0.8em'
+            },
+            h2: {
+              fontSize: '1.2em',
+              fontWeight: '700',
+              letterSpacing: '-0.01em',
+              lineHeight: '1.45',
+              marginTop: '2em',
+              marginBottom: '0.75em'
+            },
+            'h2::before': headingBar,
+            h3: {
+              fontSize: '0.8125rem',
+              fontWeight: '600',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              lineHeight: '1.6',
+              marginTop: '2em',
+              marginBottom: '0.8em'
+            },
+            'h3::before': headingBar,
+            h4: {
+              fontWeight: '600'
+            },
+            blockquote: {
+              marginLeft: 'unset',
+              paddingLeft: '1em',
+              borderLeftWidth: '2px',
+              fontWeight: 'inherit',
+              fontStyle: 'italic',
+              quotes: 'none'
+            },
+            'blockquote p:first-of-type::before': { content: 'none' },
+            'blockquote p:last-of-type::after': { content: 'none' },
+            code: {
+              fontSize: '0.85em',
+              fontWeight: '400',
+              padding: '0.12em 0.45em',
+              borderRadius: '5px',
+              backgroundColor: 'var(--code-inline-bg)',
+              overflowWrap: 'anywhere'
+            },
+            'code::before': { content: 'none' },
+            'code::after': { content: 'none' },
+            pre: {
+              fontSize: '0.8125rem',
+              lineHeight: '1.75',
+              padding: '18px 20px',
+              marginTop: '18px',
+              marginBottom: '18px',
+              border: '1px solid var(--hair)',
+              borderRadius: '10px'
+            },
             img: {
               width: '100%',
               marginTop: '0px',
               marginBottom: '0px',
-              position: 'unset !important',
-            },
-            blockquote: {
-              p: {
-                whiteSpace: 'pre-line',
-              },
-            },
-            h1: {
-              color: '#222222',
-              fontFamily: serifStack,
-            },
-            h2: {
-              color: '#222222',
-              fontFamily: serifStack,
-            },
-            h3: {
-              color: '#222222',
-              fontFamily: serifStack,
-            },
-            h4: {
-              color: '#222222',
-              fontFamily: serifStack,
-            },
-            pre: {
-              code: {
-                '::-webkit-scrollbar': {
-                  height: '.25rem',
-                },
-                '::-webkit-scrollbar-thumb': {
-                  backgroundColor: '#d1dad7',
-                  borderRadius: '.25rem',
-                },
-              },
-              overflowY: 'hidden',
-              fontFamily: monoStack,
-              paddingBottom: '.5rem',
-              backgroundColor: '#e9eeed',
-              color: '#535e5a',
-              scrollbarColor: '#d1dad7 transparent',
-              borderRadius: '0.75rem',
-            },
-            a: {
-              wordBreak: 'break-all',
-              color: '#6d7a75',
-              '&:hover': {
-                color: '#505c58',
-              },
-            },
-            blockquote: {
-              marginLeft: 'unset',
-              color: '#6d7a75',
-              borderLeftColor: '#d1dad7',
+              position: 'unset !important'
             },
             ul: {
-              paddingLeft: 'unset',
+              paddingLeft: '1.25em'
             },
             ol: {
-              paddingLeft: 'unset',
-            },
-            p: {
-              code: {
-                fontFamily: monoStack,
-                margin: '0 .25rem',
-                padding: '.15rem .5rem',
-                borderRadius: '.375rem',
-                backgroundColor: '#e5ebe9',
-                color: '#535e5a',
-                wordBreak: 'break-all',
-              },
-              'code:after': {
-                content: 'unset',
-              },
-              'code:before': {
-                content: 'unset',
-              },
-            },
-            hr: {
-              borderColor: '#d1dad7',
-            },
-            strong: {
-              color: '#222222',
-            },
-          },
-        },
-        invert: {
-          css: {
-            color: '#d8dddb',
-            h1: { color: '#edf0ef' },
-            h2: { color: '#edf0ef' },
-            h3: { color: '#edf0ef' },
-            h4: { color: '#edf0ef' },
-            strong: { color: '#edf0ef' },
-            pre: {
-              backgroundColor: '#1f2625',
-              color: '#929c98',
-              scrollbarColor: '#3e4846 transparent',
-              'code::-webkit-scrollbar-thumb': {
-                backgroundColor: '#3e4846',
-              },
-            },
-            a: {
-              color: '#929c98',
-              '&:hover': {
-                color: '#b8c0bd',
-              },
-            },
-            blockquote: {
-              color: '#929c98',
-              borderLeftColor: '#323b39',
-            },
-            p: {
-              code: {
-                backgroundColor: '#2a3230',
-                color: '#929c98',
-              },
-            },
-            hr: {
-              borderColor: '#323b39',
-            },
-          },
-        },
-      }),
-    },
+              paddingLeft: '1.25em'
+            }
+          }
+        }
+      }
+    }
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography')]
 }

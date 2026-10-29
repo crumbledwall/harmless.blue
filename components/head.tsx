@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useTheme } from 'next-themes'
 import { BLOG } from '@/blog.config'
 import type { PageInfo } from '@/types/page'
 
@@ -8,8 +7,6 @@ interface PageHeadProps {
 }
 
 const PageHead = ({ pageInfo }: PageHeadProps) => {
-  const { resolvedTheme } = useTheme()
-
   return (
     <>
       <Head>
@@ -28,11 +25,6 @@ const PageHead = ({ pageInfo }: PageHeadProps) => {
         <meta property="og:site_name" content={BLOG.siteName} />
         <meta name="twitter:card" content="summary" />
         <link rel="canonical" href={pageInfo.link} />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href={resolvedTheme === 'light' ? '/github.css' : '/codepen-embed.css'}
-        />
         <title>{pageInfo.pageName}</title>
       </Head>
     </>

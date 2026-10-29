@@ -1,6 +1,8 @@
+import type { Root } from 'hast'
 import Layout from '@/components/layout'
+import Markdown from '@/components/markdown'
 import { getPost } from '@/lib/notion'
-import { parseMarkdown } from '@/lib/parser'
+import { markdownToHast } from '@/lib/markdown'
 import { timeFormat } from '@/lib/time'
 import { pageLink } from '@/lib/link'
 import { useRouter } from 'next/router'
@@ -8,9 +10,10 @@ import { useRouter } from 'next/router'
 interface PostData {
   id: string
   title: string
-  content: string
   date: string | null
   description: string | null
+  tags: string[]
+  tree: Root
 }
 
 interface PostProps {
@@ -36,8 +39,8 @@ export default function Post({ postData }: PostProps) {
           type: 'article',
         }}
       >
-        <div className="flex flex-col items-center justify-center min-h-[50vh]">
-          <div className="text-xl">Loading...</div>
+        <div className="flex min-h-[50vh] items-center justify-center font-mono text-xs uppercase tracking-[0.22em] text-faint">
+          Loading…
         </div>
       </Layout>
     )
@@ -52,15 +55,19 @@ export default function Post({ postData }: PostProps) {
         type: 'article',
       }}
     >
-      <div className="flex flex-col items-start py-5 text-dark-900 dark:text-dark-100">
-        <div className="text-3xl md:text-4xl font-bold mt-5 font-serif">{postData.title}</div>
-        <div className="my-4 text-sm text-dark-400 dark:text-dark-400">
-          {timeFormat(postData.date)}
-        </div>
-        <article className="prose max-w-none w-full dark:prose-invert">
-          {parseMarkdown(postData.content)}
-        </article>
-      </div>
+      <header className="mb-[22px]">
+        <h1 className="text-2xl font-bold leading-[1.35] tracking-[-0.015em] md:text-[26px]">
+          {postData.title}
+        </h1>
+        <p className="mt-1.5 font-mono text-xs text-muted">
+          {postData.date && <time dateTime={postData.date}>{timeFormat(postData.date)}</time>}
+          {postData.date && postData.tags.length > 0 && ' — '}
+          {postData.tags.join(' / ')}
+        </p>
+      </header>
+      <article className="prose w-full max-w-none">
+        <Markdown tree={postData.tree} />
+      </article>
     </Layout>
   )
 }
@@ -74,10 +81,22 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   try {
-    const postData = await getPost(params.id)
+    const post = await getPost(params.id)
+    // Only the rendered tree is sent to the client; the raw Markdown stays on the server.
+    const postData = post
+      ? {
+          id: post.id,
+          title: post.title,
+          date: post.date,
+          description: post.description,
+          tags: post.tags,
+          tree: await markdownToHast(post.content),
+        }
+      : null
+
     return {
       props: {
-        postData: postData || null,
+        postData,
       },
       revalidate: 3600,
     }
