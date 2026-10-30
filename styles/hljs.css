@@ -1,84 +1,75 @@
 /*
- * highlight.js theme for both color schemes, replacing the runtime swap between
- * public/github.css and public/codepen-embed.css. Every color is a CSS variable from
- * globals.css, so `.dark` switches the whole palette without loading another stylesheet.
- * Token classes are grouped by role; the class list is derived from what highlight.js
- * actually emits for the languages used here (js, ts, py, go, rust, c, bash, php, json,
- * yaml, xml, css, sql, diff, md, http). All roles meet WCAG AA against the code background.
+ * highlight.js theme for both color schemes: Monokai Light and Monokai, as on
+ * m-cosmosss.github.io (Hugo's chroma monokai styles). Every color is a CSS variable from
+ * globals.css, so `.dark` switches the palette without loading another stylesheet. Classes are
+ * grouped the way chroma's monokai colors its tokens; anything not listed uses the code color.
  */
 .hljs {
   background: unset !important;
   color: var(--code-fg);
 }
 
-/* Muted: comments and brackets/operators sit behind the code. */
+/* Comments; preprocessor lines, shebangs and decorators share their color. */
 .hljs-comment,
 .hljs-quote {
   color: var(--code-comment);
   font-style: italic;
 }
 
-.hljs-punctuation,
-.hljs-operator,
-.hljs-meta,
-.hljs-tag {
-  color: var(--code-punct);
+.hljs-meta {
+  color: var(--code-comment);
 }
 
-/* Keyword (clay, the site accent): control flow, element names, removed diff lines. */
+/* Cyan: keywords, true/false/null, types, constants, this/self, CSS properties. */
 .hljs-keyword,
-.hljs-selector-tag,
-.hljs-doctag,
-.hljs-template-tag,
-.hljs-meta .hljs-keyword,
+.hljs-literal,
+.hljs-type,
 .hljs-variable.language_,
-.hljs-name,
-.hljs-deletion {
+.hljs-variable.constant_,
+.hljs-template-tag,
+.hljs-attribute {
   color: var(--code-keyword);
 }
 
-/* String (olive): strings, regex, added diff lines, inline markdown code. */
-.hljs-string,
-.hljs-regexp,
-.hljs-meta .hljs-string,
-.hljs-addition,
-.hljs-code {
-  color: var(--code-string);
+/* Pink: operators, tag names, element selectors, removed lines. */
+.hljs-operator,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion {
+  color: var(--code-tag);
 }
 
-/* Number / constant (amber): numerics, literals, escapes, symbols, list bullets. */
-.hljs-number,
-.hljs-literal,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-char.escape_,
-.hljs-variable.constant_ {
-  color: var(--code-number);
-}
-
-/* Function / key (blue): callables, object & data keys, variables, links, headings. */
+/* Green: function and class names, attributes and object keys, selectors, added lines. */
 .hljs-title,
 .hljs-title.function_,
 .hljs-title.function_.invoke__,
-.hljs-function .hljs-title,
-.hljs-section,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
 .hljs-attr,
-.hljs-attribute,
-.hljs-variable,
-.hljs-template-variable,
+.hljs-section,
 .hljs-selector-class,
 .hljs-selector-id,
 .hljs-selector-pseudo,
-.hljs-link {
+.hljs-selector-attr,
+.hljs-addition {
   color: var(--code-function);
 }
 
-/* Type / class (plum): type names, classes, built-ins. */
-.hljs-title.class_,
-.hljs-title.class_.inherited__,
-.hljs-type,
-.hljs-built_in {
-  color: var(--code-type);
+/* Yellow / orange: strings, regular expressions, Markdown code and links. */
+.hljs-string,
+.hljs-regexp,
+.hljs-meta .hljs-string,
+.hljs-code,
+.hljs-link {
+  color: var(--code-string);
+}
+
+/* Purple: numbers, escapes, symbols, list bullets. */
+.hljs-number,
+.hljs-symbol,
+.hljs-char.escape_,
+.hljs-bullet {
+  color: var(--code-number);
 }
 
 .hljs-section,

@@ -30,7 +30,7 @@ const ThemeToggle = () => {
       type="button"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       // Phones: 18px icon with a 42px tap area (negative margin keeps it visually aligned).
-      className="group/theme -m-3 cursor-pointer border-none bg-transparent p-3 text-muted transition-colors duration-300 hover:text-clay md:-m-1 md:p-1 md:text-faint"
+      className="group/theme -m-3 cursor-pointer border-none bg-transparent p-3 text-muted transition-colors duration-300 hover:text-accent md:-m-1 md:p-1 md:text-faint"
       aria-label="Toggle theme"
       title="Toggle theme"
     >
@@ -56,7 +56,7 @@ const PageHeader = () => {
     <aside className="border-b border-hair md:border-b-0 md:border-r">
       {/*
         Below md: a masthead (avatar, name, tagline, theme toggle) over a row of tabs that sits on
-        the bottom border; the active tab is underlined in clay. md+: rail pinned to the viewport;
+        the bottom border; the active tab is underlined in the accent color. md+: rail pinned to the viewport;
         in very short windows it scrolls on its own, with the scrollbar hidden.
       */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 pt-6 md:sticky md:top-0 md:h-screen md:flex-col md:flex-nowrap md:items-stretch md:gap-0 md:overflow-y-auto md:scrollbar-none md:px-8 md:pb-10 md:pt-14">
@@ -76,7 +76,7 @@ const PageHeader = () => {
             />
           </span>
           <span className="flex flex-col md:mt-5">
-            <span className="text-[17px] font-bold tracking-[-0.01em] transition-colors duration-300 group-hover/brand:text-clay md:text-[15px]">
+            <span className="text-[17px] font-bold tracking-[-0.01em] text-accent md:text-[15px]">
               {BLOG.nickname}
             </span>
             <span className="mt-0.5 font-mono text-[11px] tracking-[0.02em] text-muted md:mt-1.5">
@@ -96,18 +96,19 @@ const PageHeader = () => {
                 key={item.key}
                 href={item.href}
                 aria-current={isActive ? 'page' : undefined}
-                // py-3 gives every tab a 44px tap target; below md the active tab's 2px clay
-                // underline covers the header's bottom border.
+                // py-3 gives every tab a 44px tap target; below md the active tab's 2px accent
+                // underline covers the header's bottom border. As on the reference site, links
+                // are muted and the current page is bold in the accent color.
                 className={`group/nav relative py-3 text-sm transition-colors duration-300 md:border-b md:border-hair ${
                   isActive
-                    ? 'text-clay max-md:after:absolute max-md:after:inset-x-0 max-md:after:-bottom-px max-md:after:h-0.5 max-md:after:bg-clay'
-                    : ''
+                    ? 'font-semibold text-accent max-md:after:absolute max-md:after:inset-x-0 max-md:after:-bottom-px max-md:after:h-0.5 max-md:after:bg-accent'
+                    : 'text-muted hover:text-ink'
                 }`}
               >
-                {/* Same 14px clay bar as article headings; it draws in on hover and stays on the active page. */}
+                {/* Same 14px accent bar as article headings; it draws in on hover and stays on the active page. */}
                 <span
                   aria-hidden="true"
-                  className={`absolute left-0 top-1/2 hidden h-[2px] w-3.5 origin-left -translate-y-1/2 bg-clay transition-transform duration-500 ease-out-expo md:block ${
+                  className={`absolute left-0 top-1/2 hidden h-[2px] w-3.5 origin-left -translate-y-1/2 bg-accent transition-transform duration-500 ease-out-expo md:block ${
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover/nav:scale-x-100'
                   }`}
                 />

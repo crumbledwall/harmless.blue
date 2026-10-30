@@ -3,7 +3,7 @@
 // It is loaded by the `@config` line in styles/globals.css.
 import typography from '@tailwindcss/typography'
 
-// Short clay bar in front of article h2/h3.
+// Short accent bar in front of article h2/h3.
 const headingBar = {
   content: '""',
   display: 'inline-block',
@@ -11,8 +11,11 @@ const headingBar = {
   height: '2px',
   marginRight: '10px',
   verticalAlign: '0.3em',
-  backgroundColor: 'var(--clay)'
+  backgroundColor: 'var(--accent)'
 }
+
+// Grey highlighter under links, as on m-cosmosss.github.io; it grows on hover.
+const linkHighlight = (height, alpha) => `inset 0 -${height} rgb(189 195 199 / ${alpha})`
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -24,13 +27,13 @@ const config = {
             '--tw-prose-body': 'var(--ink)',
             '--tw-prose-headings': 'var(--ink)',
             '--tw-prose-lead': 'var(--muted)',
-            '--tw-prose-links': 'var(--clay)',
+            '--tw-prose-links': 'var(--accent)',
             '--tw-prose-bold': 'var(--ink)',
             '--tw-prose-counters': 'var(--faint)',
             '--tw-prose-bullets': 'var(--faint)',
             '--tw-prose-hr': 'var(--hair)',
             '--tw-prose-quotes': 'var(--muted)',
-            '--tw-prose-quote-borders': 'var(--clay)',
+            '--tw-prose-quote-borders': 'var(--hair)',
             '--tw-prose-captions': 'var(--faint)',
             '--tw-prose-kbd': 'var(--ink)',
             '--tw-prose-code': 'var(--code-inline-fg)',
@@ -46,16 +49,12 @@ const config = {
             },
             a: {
               fontWeight: 'inherit',
-              textDecorationThickness: '1px',
-              textUnderlineOffset: '0.28em',
-              textDecorationColor: 'color-mix(in srgb, var(--clay) 35%, transparent)',
+              textDecoration: 'none',
               overflowWrap: 'anywhere',
-              transitionProperty: 'text-decoration-color, text-underline-offset',
-              transitionDuration: '400ms',
-              transitionTimingFunction: 'var(--ease-out-expo)',
+              boxShadow: linkHighlight('2px', 0.5),
+              transition: 'box-shadow 300ms ease',
               '&:hover': {
-                textDecorationColor: 'var(--clay)',
-                textUnderlineOffset: '0.16em'
+                boxShadow: linkHighlight('10px', 0.7)
               }
             },
             h1: {
@@ -88,14 +87,18 @@ const config = {
             h4: {
               fontWeight: '600'
             },
+            // Grey bar on a light grey panel, as on the reference site.
             blockquote: {
               marginLeft: 'unset',
-              paddingLeft: '1em',
-              borderLeftWidth: '2px',
+              padding: '0.75em 1em',
+              borderInlineStartWidth: '4px',
+              backgroundColor: 'var(--quote-bg)',
               fontWeight: 'inherit',
               fontStyle: 'italic',
               quotes: 'none'
             },
+            'blockquote > :first-child': { marginTop: '0' },
+            'blockquote > :last-child': { marginBottom: '0' },
             'blockquote p:first-of-type::before': { content: 'none' },
             'blockquote p:last-of-type::after': { content: 'none' },
             code: {

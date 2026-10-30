@@ -47,7 +47,7 @@ export default function Friends() {
               </div>
               <div className="flex min-w-0 flex-1 flex-col">
                 <div className="truncate text-[15px] font-semibold">
-                  <span className="sweep group-hover:text-clay">{friend.name}</span>
+                  <span className="sweep group-hover:text-accent">{friend.name}</span>
                 </div>
                 <div className="mt-0.5 truncate font-mono text-[11px] text-faint">
                   {friend.description}
@@ -55,7 +55,7 @@ export default function Friends() {
               </div>
               <span
                 aria-hidden="true"
-                className="-translate-x-1 translate-y-1 font-mono text-xs text-clay opacity-0 transition duration-500 ease-out-expo group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
+                className="-translate-x-1 translate-y-1 font-mono text-xs text-accent opacity-0 transition duration-500 ease-out-expo group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
               >
                 &#8599;
               </span>

@@ -13,7 +13,7 @@ interface PostListProps {
 const pad = (n: number) => String(n).padStart(2, '0')
 
 const pagerClass =
-  'group flex h-10 w-10 items-center justify-center rounded-full border border-hair text-muted transition-colors duration-300 hover:border-clay hover:text-clay'
+  'group flex h-10 w-10 items-center justify-center rounded-full border border-hair text-muted transition-colors duration-300 hover:border-accent hover:text-accent'
 
 export default function PostList({ list, offset, currentPage, totalPages }: PostListProps) {
   const hasPrev = currentPage > 1
@@ -40,13 +40,13 @@ export default function PostList({ list, offset, currentPage, totalPages }: Post
               <span className="block transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">
                 {pad(offset + index + 1)}
               </span>
-              <span className="absolute inset-x-0 top-full block text-clay transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">
+              <span className="absolute inset-x-0 top-full block text-accent transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">
                 &rarr;
               </span>
             </span>
             <div className="min-w-0">
               <h2 className="text-[17px] font-semibold leading-normal tracking-[-0.005em] md:text-lg md:leading-7">
-                <span className="sweep group-hover:text-clay">{item.title}</span>
+                <span className="sweep group-hover:text-accent">{item.title}</span>
               </h2>
               {item.description && (
                 <p className="mt-1.5 line-clamp-2 max-w-[52ch] text-[13px] leading-[1.7] text-muted">
